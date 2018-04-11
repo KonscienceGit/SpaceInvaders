@@ -1,5 +1,3 @@
-//https://threejs.org/examples/#webgl_modifier_subdivision
-//https://threejs.org/docs/#api/geometries/SphereGeometry
 "use strict";
 
 var main = function () {
@@ -13,7 +11,7 @@ var main = function () {
     var manager;
     var textManager;
 
-//trinity of holy objects
+//trinity of scene, camera and renderer
     var scene;
     var camera;
     var renderer;
@@ -34,7 +32,6 @@ var main = function () {
 //mesh objects
     var mars;
     var skybox;
-    //var earth;
 
 //materials
     var matMars;
@@ -45,11 +42,9 @@ var main = function () {
 
     loadingScene();
     initGUI();
-    //animate is called throud the loading manager
-
 
     function init() {
-    //depicting of the genesis
+    //initialisation of the scene
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.001, 200);
         camera.position.z = 4.5;
@@ -57,6 +52,7 @@ var main = function () {
         renderer = new THREE.WebGLRenderer();
         maxAnisotropy = renderer.capabilities.getMaxAnisotropy(); //Anisotrop filtering, setting to the max possible
         if (maxAnisotropy > 8) {
+            //And adjusting it to a sensible value. 16x is overdoing it.
             sufficientAnisotropy = 8;
         }
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -142,7 +138,9 @@ var main = function () {
     function loadingScene() {
         var colorMapMars = textureLoader.load("maps/mars/mars.jpg");
         colorMapMars.anisotropy = sufficientAnisotropy;
-        var normalMapMars = textureLoader.load("maps/mars/Blended_NRM.png");
+        var normalMapMars = textureLoader.load("maps/mars/Blended_NRM_4K.png");
+        //due to GitHub limitation of 25Mo per file, had to downsize the normal map. Original map was 8192x4096px.
+        //var normalMapMars = textureLoader.load("maps/mars/Blended_NRM.png");
         colorMapMars.anisotropy = sufficientAnisotropy;
         var displacementMapMars = textureLoader.load("maps/mars/Blended_DISP.jpg");
 
