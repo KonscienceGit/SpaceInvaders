@@ -1,0 +1,66 @@
+html, body {
+    margin: 0;
+    padding:0;
+    overflow: hidden;
+    background:black;
+    background-image: url("../images/nasa.gov_CG_581910main_PIA14293_full.jpg");
+}
+
+div.titlebox {
+  margin: 20px;
+  background-color: #ffffff;
+  border: 3px solid black;
+  display: inline-block; /*used to adjust the size of the block, be sure to put this in another div to avoid them stacking inline.*/
+  opacity: 0.7;
+  filter: alpha(opacity=70); /* For IE8 and earlier */
+}
+
+div.linkbox {
+  margin: 20px;
+  background-color: #ffffff;
+  border: 2px solid black;
+  display: inline-block;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+div.contactbox {
+  position: absolute;
+  bottom: 5px;
+  left: 20px;
+  background-color: #ffffff;
+  border: 2px solid black;
+  display: inline-block;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+div.sourcebox {
+  position: absolute;
+  bottom: 5px;
+  right: 15px;
+  background-color: #ffffff;
+  border: 2px solid black;
+  display: inline-block;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+div.textbox {
+  margin: 10px;
+}
+
+/* unvisited link */
+a:link {
+    color: blue;
+}
+
+/* visited link */
+a:visited {
+    color: slatesblue;
+}
+
+/* mouse over link */
+a:hover {
+    color: red;
+}

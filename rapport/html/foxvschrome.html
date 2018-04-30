@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- shortcut http://localhost/test/rapport/html/foxvschrome.html -->
+<!-- image comparison by twentytwenty https://github.com/zurb/twentytwenty -->
+<html>
+	<head>
+		<meta charset=UTF-8>
+		<meta name="author" content="Poinsignon Nicolas">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Firefox vs Chrome</title>
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/jquery.event.move.js"></script>
+        <script src="../js/jquery.twentytwenty.js"></script>
+        <link rel="stylesheet" href="../css/twentytwenty.css" type="text/css" media="screen" />
+	</head>
+	<body>
+        <div id="container1">
+            <!-- The before image is first -->
+            <img src="../images/color-firefox.jpg" />
+            <!-- The after image is last -->
+            <img src="../images/color-chrome.jpg" />
+        </div>
+        <script>
+        $(function(){
+            $("#container1").twentytwenty();
+        });
+        $(function(){
+            $(".twentytwenty-container").twentytwenty({
+                default_offset_pct: 0.5, // How much of the before image is visible when the page loads
+                before_label: "Firefox", // Set a custom before label
+                after_label: "Chrome", // Set a custom after label
+                move_with_handle_only: false, // Allow a user to swipe anywhere on the image to control slider movement. 
+                click_to_move: true // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
+                });
+            });
+        </script>
+	</body>
+</html>
