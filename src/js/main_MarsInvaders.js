@@ -2,129 +2,6 @@
 //python -m SimpleHTTPServer
 //localhost:8000
 
-var Missile = function (geomMissile, matRed,xPos,yPos) {
-    this.missile = new THREE.Mesh(geomMissile, matRed);
-    this.missile.position.x = xPos;
-    this.missile.position.y = yPos;
-    this.missile.position.z = 3;
-
-    this.moveAndCheck = function () {
-        var actualX = this.missile.position.x;
-        var actualY = this.missile.position.y;
-        if (actualY>0.9) {
-            return false;
-        } else {
-            this.missile.position.y +=0.05;
-            return true;
-        }
-    }
-}
-
-//this object will manage enemies, they creation, destruction, movements, updates and collision
-var BattleManager = function (scene) {
-    this.playerMissileIsLive = false;
-    this.playerMissile = undefined;
-    this.geomEnemy = new THREE.BoxGeometry(0.1, 0.1, 0.03);
-    this.matDarkGreen = new THREE.MeshBasicMaterial({color: 0x005500});
-    this.meshEnemy = new THREE.Mesh(this.geomEnemy, this.matDarkGreen);
-    this.geomMissile = new THREE.BoxGeometry(0.01, 0.05, 0.01);
-    this.matRed = new THREE.MeshBasicMaterial({color: 0xff0000});
-    this.meshMissile = new THREE.Mesh(this.geomMissile, this.matRed);
-    this.enemyNumber = 80;
-    this.enemyArray = new Array(this.enemyNumber);
-    for (var i = 0; i < this.enemyNumber; i++){
-        var dynPosX = (i%10 - 5)*0.16;
-        var dynPosY = 0.7 - (0.14*(i-i%10)/10);
-        this.enemyArray[i] = new Enemy(scene, this.geomEnemy, this.matDarkGreen, dynPosX , dynPosY);
-        scene.add(this.enemyArray[i].enemy);
-    }
-    this.enemyWay = 1;
-    this.changingWay = false;
-    this.difficultySpeed = 0.002;
-
-    this.playerFireMissile = function (xPos,yPos) {
-        this.playerMissile = new Missile(this.geomMissile,this.matRed,xPos,yPos);
-        scene.add(this.playerMissile.missile);
-        this.playerMissileIsLive = true;
-    }
-
-    this.checkPlayerMissileCollision = function (scene) {
-        //for each enemy
-        for (var i = 0; i < this.enemyNumber ; i++) {
-            //first we check if both the enemy and missile still exist
-            if (this.playerMissileIsLive && this.enemyArray[i] != null) {
-                //then we calculate the difference on the Y axis between the missile and the enemy
-                var diffY = this.enemyArray[i].enemy.position.y - this.playerMissile.missile.position.y;
-                //and then we check if this is withing collision range (Y axis)
-                if ( diffY < 0.05 && diffY > -0.05) {
-                    //then this time, we calculate the difference on the X axis between the missile and the enemy
-                    var diffX = this.enemyArray[i].enemy.position.x - this.playerMissile.missile.position.x;
-                    //and then we check if this is withing collision range (X axis), thus a real collision
-                    if ( diffX < 0.05 && diffX > -0.05) {
-                        scene.remove(this.enemyArray[i].enemy);
-                        this.enemyArray[i] = null;
-                        scene.remove(this.playerMissile.missile);
-                        this.playerMissileIsLive = false;
-                        console.log("hit");
-                    }
-                }
-            }
-        }
-    }
-
-    //update enemies, missiles, and then check for collision if needed
-    this.update = function () {
-        //if the missile is still alive
-        if (this.playerMissileIsLive){
-            //if the missile is still on the game zone then move the missile and
-            if (this.playerMissile.moveAndCheck()){
-                //check for enemy collision
-                this.checkPlayerMissileCollision(scene);
-            } else {
-                //destroy the missile to allow player to shoot the next one
-                scene.remove(this.playerMissile.missile);
-                this.playerMissileIsLive = false;
-            }
-
-
-        }
-
-        //Moving enemies: for each enemy created
-        for (var i = 0; i < this.enemyNumber; i++) {
-            //store the way they should move, +1 or -1
-            var theWay = this.enemyWay;
-            //if the enemy hasn't been destroyed
-            if (this.enemyArray[i] != null) {
-                //if no other enemy has already hit one side of the game zone
-                if (!this.changingWay){
-                    //if enemies should go toward x, did they hit the limit?
-                    if (theWay > 0 && this.enemyArray[i].enemy.position.x > 1) {
-                        this.changingWay = true
-                    //then if enemies should go toward -x, did they hit the limit?
-                    } else if (theWay < 0 && this.enemyArray[i].enemy.position.x < -1) {
-                        this.changingWay = true
-                    }
-                }
-                //move enemies
-                this.enemyArray[i].enemy.position.x += (theWay * this.difficultySpeed);
-            }
-        }
-        //if one enemies hit the limit, change the way for the next turn
-        if (this.changingWay){
-            this.enemyWay = -this.enemyWay;
-            this.changingWay = false;
-        }
-    }
-
-}
-
-var Enemy = function (scene, geomEnemy, matDarkGreen, xPos,yPos) {
-    this.enemy = new THREE.Mesh(geomEnemy, matDarkGreen);
-    this.enemy.position.x = xPos;
-    this.enemy.position.y = yPos;
-    this.enemy.position.z = 3;
-}
-
 var main = function () {
     //engine variables
     var playerMissile = null;
@@ -164,15 +41,12 @@ var main = function () {
     var geomSegBar = new THREE.BoxGeometry(0.98, 0.2, 0.1);
     var geomBar = new THREE.BoxGeometry(5, 0.05, 0.1);
     var geomSkybox = new THREE.SphereGeometry (1,24,16);
-    var geomShip = new THREE.BoxGeometry(0.1, 0.1, 0.1);
 
     //materials
     var matMars;
     var matWhite = new THREE.MeshBasicMaterial({color: 0xffffff});
-    var matMetal = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
 
     //global objects
-    var ship;
     var mars;
     var skybox;
 
@@ -223,21 +97,29 @@ var main = function () {
         //images and textures
         textureLoader = new THREE.TextureLoader(manager);
 
-
-
         //loadingscreen items
         loadingGroup = new THREE.Group();
         scene.add(loadingGroup);
 
-        loadingScreen( 0 );
+        //creating the Battle Manager
+        battleManager = new BattleManager(scene);
+
+        loadingScreen( 0, battleManager );
     }
 
     //Loading screen
-    function loadingScreen( stage ) {
+    function loadingScreen( stage, battleManager ) {
         //each time a texture is loaded, the load manager call this function, updating the loading screen.
         //Loading screen objects are then added to the loadingGroup.
+        var matMetal = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
         switch (stage) {
             case 0:{
+                var loadingBar = new THREE.Mesh(geomBar, matMetal);
+                loadingBar.position.x = 0;
+                loadingBar.position.y = -0.15;
+                loadingBar.position.z = 1.2;
+                loadingGroup.add( loadingBar );
+                renderer.render(scene, camera);
                 var loader = new THREE.FontLoader(textManager);
                 loader.load( "../lib/font/CyberspaceRacewayBack.json", function ( font ) {
                 	textGeometry = new THREE.TextGeometry( "LOADING...", {
@@ -246,6 +128,7 @@ var main = function () {
                 		height: 0.15,
                 		curveSegments: 12
                 	} );
+                    battleManager.setFont(font);
                 } );
                 textManager.onLoad = function ( ) {
                     var loadingText = new THREE.Mesh(textGeometry, matMetal);
@@ -255,12 +138,7 @@ var main = function () {
                     var loadingBlock1 = new THREE.Mesh(geomSegBar, matMetal);
                     loadingBlock1.position.x = -2;
                     loadingBlock1.position.z = 1.2;
-                    var loadingBar = new THREE.Mesh(geomBar, matMetal);
-                    loadingBar.position.x = 0;
-                    loadingBar.position.y = -0.15;
-                    loadingBar.position.z = 1.2;
                     loadingGroup.add( loadingText );
-                    loadingGroup.add( loadingBar );
                     loadingGroup.add( loadingBlock1 );
                     renderer.render(scene, camera);
                 };
@@ -290,23 +168,24 @@ var main = function () {
                 loadingGroup.add( loadingBlock5 );
                 loadingGroup.visible = false;
             } break;
-            default: {console.log("Loading Switch Case hit an exception!");}
-            break;
+            default: {
+                console.log("Loading Switch Case hit an exception!");
+            }
         }
         renderer.render(scene, camera);
     }
 
     function loadingScene() {
-        var colorMapMars = textureLoader.load("../medias/maps/mars/mars.jpg");
-        colorMapMars.anisotropy = sufficientAnisotropy;
         var normalMapMars = textureLoader.load("../medias/maps/mars/Blended_NRM_4K.png");
         //due to GitHub limitation of 25Mo per file, had to downsize the normal map. Original map was 8192x4096px.
         //var normalMapMars = textureLoader.load("maps/mars/Blended_NRM.png");
-        colorMapMars.anisotropy = sufficientAnisotropy;
-        var displacementMapMars = textureLoader.load("../medias/maps/mars/Blended_DISP.jpg");
-
+        normalMapMars.anisotropy = sufficientAnisotropy;
         var colorMapSkybox = textureLoader.load("../medias/maps/milkyway.jpg");
         colorMapSkybox.anisotropy = sufficientAnisotropy;
+        var displacementMapMars = textureLoader.load("../medias/maps/mars/Blended_DISP.jpg");
+        displacementMapMars.anisotropy = sufficientAnisotropy;
+        var colorMapMars = textureLoader.load("../medias/maps/mars/mars.jpg");
+        colorMapMars.anisotropy = sufficientAnisotropy;
 
         matMars = new THREE.MeshPhongMaterial({
             color: 0xaaaaaa,
@@ -321,13 +200,6 @@ var main = function () {
             map: colorMapSkybox,
             side: THREE.BackSide
         });
-
-    //ship
-        ship = new THREE.Mesh(geomShip, matMetal);
-        scene.add(ship);
-        ship.position.x = 0;
-        ship.position.y = -0.7;
-        ship.position.z = 3;
 
     //mesh positioning
         skybox = new THREE.Mesh(geomSkybox, matSkybox);
@@ -344,18 +216,17 @@ var main = function () {
         sunlight.position.z = 50;
         scene.add( sunlight );
 
-        battleManager = new BattleManager(scene);
-
     //Event called on window resizing
         window.addEventListener( "resize", onWindowResize, false );
 
         manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
             console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-            loadingScreen( itemsLoaded );
-       };
+            loadingScreen( itemsLoaded, battleManager );
+        };
 
         manager.onLoad = function ( ) {
            console.log("Ressources loading complete!");
+           battleManager.init();
            animate();
         };
     }
@@ -364,55 +235,68 @@ var main = function () {
         //free orbital controls:
         //orbitalControls.update();
 
-        //update regular controls:
-        window.onkeydown = function(keyPressed){
-            switch (keyPressed.keyCode){
-                case 80:
-                    //take a screenshot and open a new tab
-                    //solution working on both Chrome and firefox, thank to user Joyston: https://stackoverflow.com/a/45789588
-                    var dataUrl = renderer.domElement.toDataURL("image/jpeg");
-                    var iframe = "<iframe width='100%' height='100%' src='" + dataUrl + "'></iframe>";
-                    var x = window.open();
-                    x.document.write(iframe);
-                    x.document.close();
-                    break;
-                case 37:
-                    keyLeft = true;
-                    break;
-                case 39:
-                    keyRight = true;
-                    break;
-                case 32:
-                    //player ship fire a missile
-                    if (!battleManager.playerMissileIsLive){
-                        battleManager.playerFireMissile(ship.position.x,ship.position.y);
-                    }
-                    break;
-                default:
-            }
-        };
+        //if the game is fully loaded
+        if (battleManager.initiated){
+            //update regular controls:
+            //if a key is pressed...
+            window.onkeydown = function(keyPressed){
+                switch (keyPressed.keyCode){
+                    case 80: //F
+                        //take a screenshot and open a new tab
+                        //solution working on both Chrome and firefox, thank to user Joyston: https://stackoverflow.com/a/45789588
+                        var dataUrl = renderer.domElement.toDataURL("image/jpeg");
+                        var iframe = "<iframe width='100%' height='100%' src='" + dataUrl + "'></iframe>";
+                        var x = window.open();
+                        x.document.write(iframe);
+                        x.document.close();
+                        break;
+                    case 76: //L -> Instant Game Over (for Test purposes)
+                        if (!battleManager.gameOverScreen)
+                        battleManager.gameOver();
+                        break;
+                    case 82: //R
+                        if (battleManager.gameOverScreen){
+                            battleManager.restart();
+                        }
+                        break;
+                    case 37: //LEFT
+                        keyLeft = true;
+                        break;
+                    case 39: //RIGHT
+                        keyRight = true;
+                        break;
+                    case 32: //SPACE
+                        //player ship fire a missile
+                        if (!battleManager.playerMissileIsLive){
+                            battleManager.playerFireMissile();
+                        }
+                        break;
+                    default:
+                }
+            };
 
-        window.onkeyup = function(keyReleased){
-            switch (keyReleased.keyCode){
-                case 37:
-                    keyLeft = false;
-                    break;
-                case 39:
-                   keyRight = false;
-                   break;
-                default:
-            }
-        };
+            //if a key is released...
+            window.onkeyup = function(keyReleased){
+                switch (keyReleased.keyCode){
+                    case 37: //LEFT
+                        keyLeft = false;
+                        break;
+                    case 39: //RIGHT
+                       keyRight = false;
+                       break;
+                    default:
+                }
+            };
 
-        //ship control
-        if ((keyLeft == true) && (ship.position.x > -1)){
-            ship.position.x -= 0.02;
-        }else if ((keyRight == true) && (ship.position.x < 1)){
-            ship.position.x += 0.02;
+            //ship control
+            if ((keyLeft === true) && (battleManager.playerShip.shipMesh.position.x > -1)){
+                battleManager.playerShip.moveLeft();
+            }else if ((keyRight === true) && (battleManager.playerShip.shipMesh.position.x < 1)){
+                battleManager.playerShip.moveRight();
+            }
+
+            battleManager.updateBattle();
         }
-
-        battleManager.update();
-
 
         if (marsRotate) {
             marsRotation += 0.003;
