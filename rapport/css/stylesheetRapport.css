@@ -1,3 +1,92 @@
+/*
+    Created on : May, the 4th, 7:29 PM
+    Author     : Poinsignon Nicolas
+*/
+
+html, body {
+    background:#dfbe9f;
+    padding: 0;
+    margin: 0;
+}
+
+#wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    padding: 0;
+}
+
+#leftMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15%;
+    height: 100%;
+    background-color: #d2bb79;
+}
+
+#Menu {
+    background-color: #d2bb79;
+}
+
+#textMenu {
+    position: fixed;
+    top: 0;
+    left: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    right: 1%;
+    width: 13%;
+    height: 100%;
+    background-color: #ece2c6;
+    font-size: 18px;
+    font-family: "Times New Roman";
+}
+
+#text {
+
+    font-size: 18px;
+    background-color: #ece2c6;
+}
+
+#scrollableCanvas {
+    float: right;
+    margin-right: 8%;
+    padding-left: 1%;
+    padding-right: 1%;
+    width: 72%;
+    height: 100%;
+    background-color: #f2e5d9;
+    font-size: 18px;
+    font-family: "Arial";
+  }
+
+h1 {
+    font-family: "Times New Roman";
+}
+
+h2 {
+    font-family: "Times New Roman";
+    margin-left: 5px;
+}
+
+h3 {
+
+    margin-left: 10px;
+}
+
+h4 {
+
+    margin-left: 10px;
+}
+
+p {
+    margin-left: 10px;
+}
+
+
+/* twentytwenty parameters */
 .twentytwenty-horizontal .twentytwenty-handle:before, .twentytwenty-horizontal .twentytwenty-handle:after, .twentytwenty-vertical .twentytwenty-handle:before, .twentytwenty-vertical .twentytwenty-handle:after {
   content: " ";
   display: block;

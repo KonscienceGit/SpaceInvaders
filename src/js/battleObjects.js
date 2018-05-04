@@ -23,7 +23,6 @@ var EnemyMissile = function (geomMissile, matGreen,xPos,yPos) {
     this.missile.position.z = 3;
 
     this.moveAndCheck = function (difficultySpeed) {
-        //console.log("moving missile!");
         var actualX = this.missile.position.x;
         var actualY = this.missile.position.y;
         if (actualY< -0.8) {
@@ -43,6 +42,7 @@ var PlayerShip = function (scene,hudManager,geomShip){
     this.shipMesh.position.x = 0;
     this.shipMesh.position.y = -0.7;
     this.shipMesh.position.z = 3;
+    this.shipMesh.visible = false;
     this.setPlayerVisible = function(){
         this.shipMesh.visible = true;
     }
@@ -62,4 +62,5 @@ var Enemy = function (geomEnemy, matDarkGreen, xPos,yPos) {
     this.enemy.position.x = xPos;
     this.enemy.position.y = yPos;
     this.enemy.position.z = 3;
+    this.enemy.visible = true;
 }

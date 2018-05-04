@@ -11,6 +11,7 @@ var main = function () {
     var sufficientAnisotropy;
     var textureLoader;
     var battleManager;
+    var levelPopUpLocalTimer;
 
     //loading screen
     var manager;
@@ -113,7 +114,7 @@ var main = function () {
         //Loading screen objects are then added to the loadingGroup.
         var matMetal = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
         switch (stage) {
-            case 0:{
+            case 0:
                 var loadingBar = new THREE.Mesh(geomBar, matMetal);
                 loadingBar.position.x = 0;
                 loadingBar.position.y = -0.15;
@@ -142,35 +143,34 @@ var main = function () {
                     loadingGroup.add( loadingBlock1 );
                     renderer.render(scene, camera);
                 };
-            } break;
-            case 1:{
+            break;
+            case 1:
                 var loadingBlock2 = new THREE.Mesh(geomSegBar, matMetal);
                 loadingBlock2.position.x = -1;
                 loadingBlock2.position.z = 1.2;
                 loadingGroup.add( loadingBlock2 );
-            } break;
-            case 2:{
+            break;
+            case 2:
                 var loadingBlock3 = new THREE.Mesh(geomSegBar, matMetal);
                 loadingBlock3.position.x = 0;
                 loadingBlock3.position.z = 1.2;
                 loadingGroup.add( loadingBlock3 );
-            } break;
-            case 3:{
+            break;
+            case 3:
                 var loadingBlock4 = new THREE.Mesh(geomSegBar, matMetal);
                 loadingBlock4.position.x = 1;
                 loadingBlock4.position.z = 1.2;
                 loadingGroup.add( loadingBlock4 );
-            } break;
-            case 4:{
+            break;
+            case 4:
                 var loadingBlock5 = new THREE.Mesh(geomSegBar, matMetal);
                 loadingBlock5.position.x = 2;
                 loadingBlock5.position.z = 1.2;
                 loadingGroup.add( loadingBlock5 );
                 loadingGroup.visible = false;
-            } break;
-            default: {
+            break;
+            default:
                 console.log("Loading Switch Case hit an exception!");
-            }
         }
         renderer.render(scene, camera);
     }
@@ -227,6 +227,7 @@ var main = function () {
         manager.onLoad = function ( ) {
            console.log("Ressources loading complete!");
            battleManager.init();
+           levelPopUpLocalTimer = battleManager.levelPopUpTimer;
            animate();
         };
     }
@@ -237,10 +238,49 @@ var main = function () {
 
         //if the game is fully loaded
         if (battleManager.initiated){
+            //if the game just launched and we need to animate the press space prompt
+
             //update regular controls:
             //if a key is pressed...
             window.onkeydown = function(keyPressed){
                 switch (keyPressed.keyCode){
+                    case 32: //SPACE
+                        //player ship fire a missile
+                        if (battleManager.startScreen){
+                            battleManager.beginGame();
+                        } else if (!battleManager.playerMissileIsLive){
+                            battleManager.playerFireMissile();
+                        }
+                        break;
+
+                    case 37: //LEFT
+                        keyLeft = true;
+                        break;
+
+                    case 39: //RIGHT
+                        keyRight = true;
+                        break;
+
+                    case 73: //I
+                        //Invincible Mode
+                        if (!battleManager.gameOverScreen && ! battleManager.startScreen){
+                            battleManager.toggleInvincible();
+                        }
+                        break;
+
+                    case 75: //K
+                        //Kill them ALL
+                        if (!battleManager.gameOverScreen && ! battleManager.startScreen){
+                            battleManager.killAllEnemies();
+                        }
+                        break;
+
+                    case 76: //L
+                        //Instant Game Over (for Test purposes)
+                        if (!battleManager.gameOverScreen)
+                        battleManager.gameOver();
+                        break;
+
                     case 80: //F
                         //take a screenshot and open a new tab
                         //solution working on both Chrome and firefox, thank to user Joyston: https://stackoverflow.com/a/45789588
@@ -250,25 +290,10 @@ var main = function () {
                         x.document.write(iframe);
                         x.document.close();
                         break;
-                    case 76: //L -> Instant Game Over (for Test purposes)
-                        if (!battleManager.gameOverScreen)
-                        battleManager.gameOver();
-                        break;
+
                     case 82: //R
                         if (battleManager.gameOverScreen){
                             battleManager.restart();
-                        }
-                        break;
-                    case 37: //LEFT
-                        keyLeft = true;
-                        break;
-                    case 39: //RIGHT
-                        keyRight = true;
-                        break;
-                    case 32: //SPACE
-                        //player ship fire a missile
-                        if (!battleManager.playerMissileIsLive){
-                            battleManager.playerFireMissile();
                         }
                         break;
                     default:
@@ -288,18 +313,29 @@ var main = function () {
                 }
             };
 
-            //ship control
-            if ((keyLeft === true) && (battleManager.playerShip.shipMesh.position.x > -1)){
-                battleManager.playerShip.moveLeft();
-            }else if ((keyRight === true) && (battleManager.playerShip.shipMesh.position.x < 1)){
-                battleManager.playerShip.moveRight();
+            if (!battleManager.startScreen){
+                //ship control
+                if ((keyLeft === true) && (battleManager.playerShip.shipMesh.position.x > -1)){
+                    battleManager.playerShip.moveLeft();
+                }else if ((keyRight === true) && (battleManager.playerShip.shipMesh.position.x < 1)){
+                    battleManager.playerShip.moveRight();
+                }
+                if (battleManager.levelPopUp){
+                    if (levelPopUpLocalTimer <= 0){
+                        levelPopUpLocalTimer = battleManager.levelPopUpTimer;
+                        battleManager.startNextLevel();
+                    } else {
+                        levelPopUpLocalTimer--;
+                    }
+                }
+                battleManager.updateBattle();
+            } else if (battleManager.hudManager.startScreenIsLive) {
+                battleManager.hudManager.animateStartScreen();
             }
-
-            battleManager.updateBattle();
         }
 
         if (marsRotate) {
-            marsRotation += 0.003;
+            marsRotation += 0.0005;
             mars.rotation.y = marsRotation;
         }
 
@@ -357,7 +393,10 @@ var main = function () {
                 mars = new THREE.Mesh(new THREE.IcosahedronGeometry( 1, vertexMult ), matMars);
                 mars.position.x = 0;
                 mars.position.y = 0;
+                mars.position.z = 2.4;
                 mars.rotation.y = marsRotation;
+                mars.material.depthWrite = false;
+                mars.renderOrder = -900;
                 scene.add(mars);
             }
         }
@@ -365,7 +404,6 @@ var main = function () {
         gui.add( effectController, "Reset" ).name("RESET");
         gui.add( effectController, "RotationMars" ).name("Rotation ON/OFF");
         function changeAnisotropy() {
-            console.log(skybox.material.map.anisotropy);
             skybox.material.map.anisotropy = effectController.AnisotropicFiltering;
             mars.material.normalMap.anisotropy = effectController.AnisotropicFiltering;
             mars.material.map.anisotropy = effectController.AnisotropicFiltering;

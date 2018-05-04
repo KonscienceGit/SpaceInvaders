@@ -7,11 +7,253 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Rapport Projet SIA</title>
         <!-- javascript -->
+        <script src="rapport/js/jquery-3.3.1.min.js"></script>
+        <script src="rapport/js/jquery.event.move.js"></script>
+        <script src="rapport/js/jquery.twentytwenty.js"></script>
 
         <!-- CSS stylesheet -->
-        <!-- <link rel="stylesheet" type="text/css" href="../css/stylesheet.css"> -->
+        <link rel="stylesheet" type="text/css" href="rapport/css/stylesheetRapport.css">
+
+        <script>
+        $(function(){
+            $("#container1").twentytwenty();
+        });
+        $(function(){
+            $(".twentytwenty-container").twentytwenty({
+                default_offset_pct: 0.5, // How much of the before image is visible when the page loads
+                before_label: "Firefox", // Set a custom before label
+                after_label: "Chrome", // Set a custom after label
+                move_with_handle_only: false, // Allow a user to swipe anywhere on the image to control slider movement.
+                click_to_move: true // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
+                });
+            });
+        </script>
+
+
 	</head>
 	<body>
-		<h1>Vide!</h1>
+
+
+        <div id="wrapper">
+            <!-- Panneau gauche (liens hypertext) -->
+            <div id="leftMenu">
+                <div id="textMenu">
+                <h2 id="Menu">Synthèse d'Images Avancée</h2>
+                <p><strong>Poinsignon Nicolas</strong></p>
+                <p><a href="https://github.com/KonscienceGit" >mon GitHub repository</p>
+                <p><a href="https://www.linkedin.com/in/nicolas-poinsignon-806a87154/" >mon profil LinkedIn</p>
+                <br/>
+                <h3>Aller à la section:</h3>
+                <a href="#part0" > <h2>Titre</h2> </a>
+                <a href="#part1" > <h3>I: Introduction</h3> </a>
+                <a href="#part2" > <h3>II: Mécanismes de jeu</h3> </a>
+                <a href="#part3" > <h3>III: Graphismes</h3> </a>
+                <a href="#part4" > <h3>IV: Fonctionnalitées</h3> </a>
+                <a href="#part5" > <h3>V: Conclusion</h3> </a>
+                <a href="#part6" > <h3>VI: Sources</h3> </a>
+                <p>
+                    <br />
+                    <br />
+                        <a href="index.html" > <h3>Retour à la page d'accueil</h3> </a>
+                    <a href="src/html/marsInvaders.html" > <h3>Accéder au jeu</h3> </a>
+                </p>
+                </div>
+            </div>
+
+            <!-- Panneau droite (canvas) -->
+            <div id="scrollableCanvas">
+                <header></header>
+
+                <div id="part0">
+                    <h1>Rapport de projet de Synthèse d'Images Avancée</h1>
+                    <p>Auteur: Poinsignon Nicolas</p>
+                    <p>Date: 4 Mai 2018</p>
+                </div>
+
+
+                <div id="part1">
+                    <h2>I: Introduction</h2>
+                    <p>Ce rapport a pour but de présenter le résultat du projet qui consiste en la réalisation d'une application de jeu, plus couramment connu sous le nom de jeu vidéo.
+                    Seront abordés, les mécanismes de jeu et leur implémentation dans un langage de programmation, la conception et mise en place de graphismes aboutis, ainsi que diverses fonctionnalitées pouvant être utilisées dans des jeux ou plus généralement dans tout type d'application 3D.
+                    </p>
+                    <p>
+                    Le sujet de ce projet est la création d'un jeu fortement inspiré du célèbre jeu Space Invaders, comprenant les fonctionnalitées du jeu original ainsi qu'une sélection de fonctionnalitées supplémentaires.
+                    </p>
+                    <p>
+                    Space Invaders est un jeu Japonais sorti en 1978 sur borne d'arcade. Qualifié de "shoot them up", le but du jeu est de piloter un vaisseau et de défendre la terre contre des aliens. Le joueur contrôle le vaisseau en bas de l'écran et les aliens, en haut de l'écran, avancent lentement vers le sol et font feux sur le joueur. Le joueur doit alors utiliser les armes de son vaisseau pour défendre la terre et venir à bout des aliens. Le jeu consiste en un certain nombre de vagues, chacune plus difficiles que les autres, et d'un système de points, permettant au joueur de comparer ses progrès.</p>
+
+                    <h3>Note sur les résolutions et formats supportés</h3>
+                    <p>Le jeu et son GUI ont été conçus (avec le mode plein écran activé) sur la base du format 4:3 et supporte les formats plus larges (16:9 et +), et supporte toute résolution. L'utilisation de format plus étroit que 4:3 peut rendre une partie du GUI en dehors de la vue caméra.
+                    Notez que ne pas jouer au jeu en mode plein écran augmente la largeur du format, à cause des barres de navigation.</p>
+
+                    <h3>Bibliothèques JavaScript utilisées</h3>
+                    <h4>Pour le jeu:</h4>
+                    <ul>
+                        <li>dat.gui - permet la création facilitée de GUI interractif, utile pour le dévelopement</li>
+                        <li>OBJLoader - permet le chargement d'objet 3D .obj par le simple appel d'une fonction</li>
+                        <li>Stats - permet d'afficher les performances de l'application, nottemment le nombre d'image par secondes</li>
+                        <li>OrbitControls - offre un control orbital de la caméra</li>
+                        <li>three.js - une librairie puissante servant de support entre le naviguateur web et la librairie de rendu graphique OpenGL</li>
+                        <li>THREExFullScreen - permet le passage en plein écran d'une fenêtre de navigateur</li>
+                    </ul>
+
+                    <h4>pour le rapport :</h4>
+                    <ul>
+                        <li>jquery - simplifie la gestion des évennements asynchrone JavaScript</li>
+                        <li>twentytwenty (jquery.event.move et jquery.twentytwenty) - permet la création d'images comparatives, se dévoilant avec un slider (voir section Graphismes)</li>
+                    </ul>
+
+                    <h3>Architecture</h3>
+                    <p>Les fichiers et objets <strong>principaux</strong> suivent cette hiérarchie de dépendance:</p>
+                    <ul>
+                        <li>main() (fichier <u>main_MarsInvaders.js</u>)</li>
+                        <ul>
+                        	<li>animate() boucle d'animation et de rendu</li>
+                    		<li>onWindowResize() redimensionne la fenêtre de rendu si modifiée</li>
+                        	<li>objet battleManager (<u>battleManager.js</u>) gère le déroulement du jeu</li>
+                            <ul>
+                                <li>objet battleObjects (<u>battleObjects.js</u>) comprend les entitées du jeu</li>
+                        		<li>objet hudManager (<u>hudManager.js</u>) gère l'affichage des informations pour le joueur</li>
+                            </ul>
+                        </ul>
+                    </ul>
+
+                </div>
+
+                <div id="part2" >
+                    <h2>II: Mécanismes de jeu</h2>
+                    <p></p>
+                </div>
+
+                <div id="part3" >
+                    <h2>III: Graphismes</h2>
+                    <h3>Les vaisseaux</h3>
+<p>Les vaisseaux du joueur et des ennemis sont des objets 3D modélisés sou blender.
+ils ont été exportés en .obj puis chargés dans le jeu en temps que THREE.Mesh grace à la bibliothèque OBJLoader</p>
+<br/>
+L'arrière plan
+<br/>
+La Skybox
+<br/>
+La skybox est une sphère dont les normales ont étés inversés
+<br/>
+skybox.material.side = THREE.BackSide;
+<br/>
+dont l'ordre de rendu sur le buffer de profondeur à été forcé au dernier plan
+<br/>
+skybox.material.depthWrite = false;
+<br/>
+skybox.renderOrder = -999;
+<br/>
+et dont la texture (map de couleur) provient d'une image de la Voie Lactée (voir références)
+<br/>
+<br/>
+Mars
+<br/>
+La planète mars contient plusieurs aspects graphiques.
+<br/>
+La map de couleur de mars provient du site https://www.solarsystemscope.com/textures/
+<br/>
+Les "displacement map" et "normal map" ont été créés au moment, à partir de la cartographie d'altitude de mars, de logiciels de cartographie et de création de normal map.
+<br/>
+<br/>
+Conversion de la cartographie de mars
+<br/>
+La carte d'altitude suivante, encodée en tiff (altitude encodée sur 16 bits) https://astrogeology.usgs.gov/search/map/Mars/Topography/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2 fut convertie en deux images png (greyscale, 8 bits), grace à http://openev.sourceforge.net/ .
+<br/>
+Chacune de ces deux images représentant des niveaux d'altitudes différents. (Filtre logarithmique pour émuler la profondeur de détail 16bit sur deux images de détail 8 bit.)
+<br/>
+La fusion par transparence de ces deux images png donne une représentation assez proche du relief de la surface de mars.
+<br/>
+Sans être parfait, je n'ai pas trouvé sur internet de map de cette qualitée.
+<br/>
+Ensuite, avec l'aide de logiciels
+<br/>
+                    <h3>Note sur la différence des couleurs entre Firefox et Chrome</h3>
+                    <p>Si l'on utilise la propriété de sur-exposition (altération du tone mapping, permettant de simuler une définition de couleur plus élevée), on remarque que le navigateur Firefox donne des résultats moins satisfaisants.
+                    <br/>
+                    L'exposition du tone mapping est ajustée dans l'application par:
+                    <br/>
+                    renderer.toneMappingExposure = 2; (1 par défaut)</p>
+                    <p>Voici une comparaison entre l'affichage du même programme sur Firefox (à gauche) et Chrome (à droite).</p>
+                    <div id="container1">
+                        <!-- The before image is first -->
+                        <img src="rapport/images/color-firefox.jpg" />
+                        <!-- The after image is last -->
+                        <img src="rapport/images/color-chrome.jpg" />
+                    </div>
+                    <p></p>
+                </div>
+
+                <div id="part4">
+                    <h2>IV: Fonctionnalitées</h2>
+                    <p></p>
+                    <h3>Fonction plein écran (fullscreen)</h3>
+                    <p>La touche f permet l'affichage plein écran de la fenêtre de jeu.</p>
+
+
+                    <h3>Fonction capture écran (screenshot)</h3>
+                    <p>
+                        La touche p permet d'ouvrir une capture d'écran dans un nouvel onglet.
+                        Suite à une mise à jour de Chrome, la méthode originale ( var x = window.open(imageURI); ) ne marche plus.
+                        Afin de pouvoir ouvrir des URI sur un nouvel onglet, il faut utiliser les balises html iframes:
+                    </p>
+                    <p>
+                        <code>
+                            var iframe = "&lt;iframe width='100%' height='100%' src='" + dataUrl + "'&gt;&lt;/iframe&gt;";
+                            <br/>
+                            var x = window.open();
+                            <br/>
+                            x.document.write(iframe);
+                            <br/>
+                            x.document.close();
+                        </code>
+                    </p>
+                    <p>
+                        Il faut également penser à autoriser les pop-up sur votre navigateur!
+                        Cette solution fonctionne sur:
+                        -Firefox (testé sur v59.0.2 (64-bit))
+                        -Chrome (testé sur v65.0.3325.181 (64-bit))
+                    </p>
+
+                </div>
+
+                <div id="part5">
+                    <h2>V: Conclusion</h2>
+                    <p>
+                        A l'instar du projet du semestre précédent sur la Synthèse d'images, travailler sur ce projet m'as permis d'apprendre énormément sur le déroulement en arrière plan des programmes de rendu graphiques, et renforce donc ma motivation à orienter mes études dans ce domaine.
+                        <br/>
+                        A cause d'une mauvaise gestion du temps de travail de ma part, mais également d'une fin de semestre très chargée, je me suis trouvé dans l'incapacité de produire l'application dans l'état que je désirais.
+                        <br/>
+                        Mais je reste satisfait de ce travail, et suis dorénavant encore plus motivé à le faire évoluer et à poursuivre dans ce domaine.
+                    </p>
+                </div>
+
+                <div id="part6">
+                    <h2>VI: Sources</h2>
+                    <h3>Bibliothèques JavaScript</h3>
+                    <ul>
+                        <li>jquery-3.3.1.min.js <a href="https://github.com/jquery/jquery">github.com/jquery/jquery</a></li>
+                        <li>jquery.event.move.js, jquery.twentytwenty.js <a href="https://zurb.com/playground/twentytwenty">zurb.com/playground/twentytwenty</a></li>
+                        <li>three.min.js <a href="http://threejs.org/build/three.min.js">threejs.org/build/three.min.js</a></li>
+                        <li>OrbitControls.min.js <a href="https://github.com/mrdoob/three.js/blob/dev/examples/js/controls/OrbitControls.js">github.com/mrdoob/three.js/blob/dev/examples/js/controls/OrbitControls.js</a></li>
+                        <li>dat.gui.min.js <a href="https://github.com/dataarts/dat.gui">github.com/dataarts/dat.gui</a></li>
+                        <li>Stats.min.js <a href="https://github.com/mrdoob/stats.js">github.com/mrdoob/stats.js</a></li>
+                        <li>THREEx.FullScreen.min.js <a href="http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js">learningthreejs.com/data/THREEx/THREEx.FullScreen.js</a></li>
+                        <li>OBJLoader.min.js <a href="https://github.com/mrdoob/three.js/tree/dev/examples/js/loaders">github.com/mrdoob/three.js/tree/dev/examples/js/loaders</a></li>
+                    </ul>
+                    <h3>Imagerie, Textures et Cartographies</h3>
+                    <ul>
+                        <li>Map de couleurs de Mars et de la Voie Lactée <a href="https://www.solarsystemscope.com/textures/">solarsystemscope.com/textures/</a></li>
+                        <li>Map d'altitude de Mars, par MOLA (Mars Orbiter Laser Altimeter  ) de la navette "Mars Global Surveyor spacecraft" (MGS) <a href="https://astrogeology.usgs.gov/search/map/Mars/Topography/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2">astrogeology.usgs.gov/search/map/Mars/Topography/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2</a></li>
+                        <li>OpenEV, visualiseur de données géospatiales <a href="http://openev.sourceforge.net/">openev.sourceforge.net/</a></li>
+                        <li>CrazyBump, éditeur de map d'altitude et de normal maps <a href="https://www.crazybump.com/">crazybump.com/</a></li>
+                        <li>NormalMap Online, éditeur de map d'altitude et de normal maps <a href="https://cpetry.github.io/NormalMap-Online/">cpetry.github.io/NormalMap-Online/</a></li>
+                    </ul>
+                </div>
+
+                <footer>Derniere mise à jour: 4 Mai 2018</footer>
+            </div>
+        </div>
 	</body>
 </html>

@@ -7,6 +7,7 @@ var BattleManager = function (scene) {
 
     //wether we are on the Game Over screen or not
     this.gameOverScreen = false;
+    this.startScreen = true;
 
     //the Hud Manager
     this.hudManager;
@@ -38,7 +39,28 @@ var BattleManager = function (scene) {
     this.geomMissile = new THREE.BoxGeometry(0.01, 0.04, 0.01);
     this.matRed = new THREE.MeshBasicMaterial({color: 0xff0000});
     this.meshMissile = new THREE.Mesh(this.geomMissile, this.matRed);
-    //player missile function
+
+    //wether the next level pop up is here or not
+    this.levelPopUp = false;
+    this.levelPopUpTimer = 120;
+    this.currentLevel = 1;
+
+    this.nextLevel = function (){
+        this.levelPopUp = true;
+        this.hudManager.displayLevelUp(this.currentLevel)
+        this.currentLevel++;
+        this.removeAllEnemies();
+        this.difficultySpeed += 0.001;
+    }
+
+    this.startNextLevel = function (){
+        this.levelPopUp = false;
+        //this.spawnEnemies(this.currentLevel) /*crash the game!*/
+        this.hudManager.removeLevelUp();
+        this.setEnemiesVisible();
+        this.enemiesAlive = this.enemyNumber;
+    }
+
     this.playerFireMissile = function () {
         this.playerMissile = new PlayerMissile(this.geomMissile, this.matRed,
                                         this.playerShip.shipMesh.position.x,
@@ -60,10 +82,14 @@ var BattleManager = function (scene) {
                     //and then we check if this is withing collision range (X axis), thus a real collision
                     if ( diffX < 0.05 && diffX > -0.05) {
                         this.enemyArray[i].enemy.visible = false;
+                        this.enemiesAlive--;
                         scene.remove(this.playerMissile.missile);
                         this.playerMissileIsLive = false;
                         this.hudManager.increaseScore(100);
                         this.difficultySpeed += 0.00003;
+                        if (this.enemiesAlive <= 0){
+                            this.nextLevel();
+                        }
                     }
                 }
             }
@@ -89,9 +115,13 @@ var BattleManager = function (scene) {
                 if ( diffX < 0.05-diffY) {
                     scene.remove(this.enemyMissile.missile);
                     this.enemyMissileIsLive = false;
-                    this.hudManager.decreaseLives();
-                    if (this.hudManager.livesValue <= 0){
-                        this.gameOver();
+                    if (this.invinciblePlayer){
+                        //bouncing off sound?
+                    } else {
+                        this.hudManager.decreaseLives();
+                        if (this.hudManager.livesValue <= 0){
+                            this.gameOver();
+                        }
                     }
                 }
             }
@@ -108,13 +138,15 @@ var BattleManager = function (scene) {
     this.lowestEnemyYPos;
     this.distanceTraveledByEnemies;
     this.enemyNumber;
+    this.enemiesAlive = 0;
     this.enemyArray;
     //enemies functions
-    this.spawnEnemies = function(geomEnemy){
+    this.spawnEnemies = function(geomEnemy, level){
         this.geomEnemy = geomEnemy;
         this.framesBetweenEachEnemyFire = 80;
         this.framesBeforeEnemyFire = this.framesBetweenEachEnemyFire;
         this.enemyNumber = 50;
+        this.enemiesAlive = this.enemyNumber;
         this.enemyArray = new Array(this.enemyNumber);
         this.enemyWay = 1;
         this.changingWay = false;
@@ -124,6 +156,7 @@ var BattleManager = function (scene) {
             var dynPosX = (i%10 - 5)*0.16;
             var dynPosY = 0.7 - (0.14*(i-i%10)/10);
             this.enemyArray[i] = new Enemy(this.geomEnemy, this.matDarkGreen, dynPosX , dynPosY);
+            this.enemyArray[i].enemy.visible = false;
             scene.add(this.enemyArray[i].enemy);
             if (i == (this.enemyNumber - 1)) {
                 this.lowestEnemyYPos = dynPosY;
@@ -138,7 +171,7 @@ var BattleManager = function (scene) {
     this.enemiesFireMissile = function (numberEnemy) {
         this.enemyMissile = new EnemyMissile(this.geomMissile, this.matGreen,
                                         this.enemyArray[numberEnemy].enemy.position.x,
-                                        this.enemyArray[numberEnemy].enemy.position.y);
+                                        this.enemyArray[numberEnemy].enemy.position.y-0.05);
         scene.add(this.enemyMissile.missile);
         this.enemyMissileIsLive = true;
         this.targetAcquired = false;
@@ -148,7 +181,7 @@ var BattleManager = function (scene) {
     this.moveEnemies = function () {
         //checking if enemies can fire
         var numberClosest;
-        if (!this.enemyMissileIsLive && !this.gameOverScreen){
+        if (!this.enemyMissileIsLive && !this.gameOverScreen && !this.levelPopUp){
             if (this.framesBeforeEnemyFire > 0){
                 this.framesBeforeEnemyFire--;
             } else {
@@ -184,14 +217,13 @@ var BattleManager = function (scene) {
                         this.changingWay = true;
                     }
                 }
-                //move enemies
-                this.enemyArray[i].enemy.position.x += (theWay * this.difficultySpeed);
             }
+            //move enemies
+            this.enemyArray[i].enemy.position.x += (theWay * this.difficultySpeed);
         }
         //if enemies should fire a missile, select enemy i
         if (this.targetAcquired){
             this.enemiesFireMissile(numberClosest);
-            //console.log("enemy is firing!");
         }
     }
 
@@ -206,9 +238,14 @@ var BattleManager = function (scene) {
         this.distanceTraveledByEnemies = 0;
     }
 
+    this.killAllEnemies = function(){
+        this.nextLevel();
+    }
+
     this.removeAllEnemies = function (){
         for (var i = 0; i < this.enemyNumber; i++) {
-            scene.remove(this.enemyArray[i].enemy)
+            //scene.remove(this.enemyArray[i].enemy) /*crash the game?!*/
+            this.enemyArray[i].enemy.visible = false;
         }
     }
 
@@ -245,17 +282,23 @@ var BattleManager = function (scene) {
     this.lowerEnemies = function () {
         this.enemyWay = -this.enemyWay;
         this.changingWay = false;
-        this.distanceTraveledByEnemies += 0.02;
+        this.distanceTraveledByEnemies += 0.03;
         for (var i = 0; i < this.enemyNumber; i++) {
-            this.enemyArray[i].enemy.position.y -= 0.02;
+            this.enemyArray[i].enemy.position.y -= 0.03;
             if (this.lowestEnemyYPos > this.enemyArray[i].enemy.position.y){
                 this.lowestEnemyYPos = this.enemyArray[i].enemy.position.y;
-                if (!this.gameOverScreen && (this.lowestEnemyYPos <= this.playerShip.shipMesh.position.y)){
+                if (!this.gameOverScreen && (this.lowestEnemyYPos <= -0.55)){
                     //player loose a life, enemies go back to high position
                     this.resetEnemiesPosition();
                     this.gameOver();
                 }
             }
+        }
+    }
+
+    this.setEnemiesVisible = function (){
+        for (var i = 0; i < this.enemyNumber; i++) {
+            this.enemyArray[i].enemy.visible = true;
         }
     }
 
@@ -281,24 +324,54 @@ var BattleManager = function (scene) {
         }
     }
 
+    this.invinciblePlayer = false;
+    this.toggleInvincible = function (){
+        if (this.invinciblePlayer){
+            this.invinciblePlayer = false;
+            this.playerShip.shipMesh.material = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
+            this.hudManager.removeInvincible
+        } else {
+            this.invinciblePlayer = true;
+            this.playerShip.shipMesh.material = new THREE.MeshStandardMaterial({color: 0xaaaa00});
+
+        }
+    }
+
     this.gameOver = function(){
         this.playerShip.removePlayerShip();
-        this.hudManager.gameOverScreen();
+        this.hudManager.fromGameToGameOverScreen();
+        if (this.playerMissileIsLive){
+            scene.remove(this.playerMissile.missile);
+        }
+        if (this.enemyMissileIsLive){
+            scene.remove(this.enemyMissile.missile);
+        }
         this.gameOverScreen = true;
     }
 
     this.restart = function (){
         this.removeAllEnemies();
         this.hudManager.removeHud();
+        this.currentLevel = 1;
         this.init();
     }
 
     this.init = function (){
         this.gameOverScreen = false;
+        this.startScreen = true;
         this.initiated = false;
         this.hudManager = new HudManager(scene,this.cyberFont);
+        this.hudManager.startScreen();
         this.loadObj();
-        this.hudManager.drawScore();
+    }
+
+    this.beginGame = function(){
+        this.startScreen = false;
+        this.levelPopUp = true;
+        this.hudManager.displayLevelUp(this.currentLevel);
+        this.currentLevel++;
+        this.hudManager.fromStartToGameTransition();
+        this.playerShip.setPlayerVisible();
     }
 
 }
