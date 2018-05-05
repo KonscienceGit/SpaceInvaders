@@ -15,27 +15,30 @@
         <script src="rapport/js/jquery.event.move.js"></script>
         <script src="rapport/js/jquery.twentytwenty.js"></script>
         <script>
-        $(function(){
-            $("#containerNormal").twentytwenty();
-        });
-        $(function(){
-            $("#containerDisplacement").twentytwenty();
-        });
-        $(function(){
-            $("#containerToneMapping").twentytwenty();
-        });
-        $(function(){
-            $("#containerTessellation").twentytwenty();
-        });
-        $(function(){
-            $(".twentytwenty-container").twentytwenty({
-                default_offset_pct: 0.5, // How much of the before image is visible when the page loads
-                before_label: "Image 1", // Set a custom before label
-                after_label: "Image 2", // Set a custom after label
-                move_with_handle_only: false, // Allow a user to swipe anywhere on the image to control slider movement.
-                click_to_move: true // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
+        $(document).ready(function(){
+            $(function(){
+                $("#containerNormal").twentytwenty();
+            });
+            $(function(){
+                $("#containerDisplacement").twentytwenty();
+            });
+            $(function(){
+                $("#containerToneMapping").twentytwenty();
+            });
+            $(function(){
+                $("#containerTessellation").twentytwenty();
+            });
+            $(function(){
+                $(".twentytwenty-container").twentytwenty({
+                    default_offset_pct: 0.5, // How much of the before image is visible when the page loads
+                    before_label: "Image 1", // Set a custom before label
+                    after_label: "Image 2", // Set a custom after label
+                    move_with_handle_only: false, // Allow a user to swipe anywhere on the image to control slider movement.
+                    click_to_move: true // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
                 });
             });
+        });
+
         </script>
 	</head>
 
@@ -186,6 +189,10 @@
                         dont la couleur de surface dépend de l'orientation des normales faces à la caméra. Ce matériau, par défaut, ne subit pas l'éclairage de la scène, toute surface du matériau est donc éclairée quel que soit son orientation,
                         ce qui permet, combiné aux couleurs, d'attirer le regard du joueur.
                     </p>
+                    <p>
+                        Respectivement: Le vaisseau du joueur, un enemis, une vie du joueur.
+                    </p>
+                    <img src="rapport/images/ships.jpg" />
                     <h3>L'arrière plan</h3>
                     <p>
                         L'arrière plan de la scène est composé de deux éléments: la skybox représentant la Voie Lactée, ainsi que la planète Mars.<br/>
