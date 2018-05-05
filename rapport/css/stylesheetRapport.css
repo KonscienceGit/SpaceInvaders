@@ -62,29 +62,25 @@ html, body {
     font-family: "Arial";
   }
 
-h1 {
+#shyText {
+    font-size: 13px;
+}
+
+h1,h2 {
     font-family: "Times New Roman";
 }
 
-h2 {
-    font-family: "Times New Roman";
-    margin-left: 5px;
+tr,table{
+    border: 1px solid #4d3f19;
+    text-align: left;
 }
 
-h3 {
-
-    margin-left: 10px;
+td,th{
+    border: 1px solid #4d3f19;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
 }
-
-h4 {
-
-    margin-left: 10px;
-}
-
-p {
-    margin-left: 10px;
-}
-
 
 /* twentytwenty parameters */
 .twentytwenty-horizontal .twentytwenty-handle:before, .twentytwenty-horizontal .twentytwenty-handle:after, .twentytwenty-vertical .twentytwenty-handle:before, .twentytwenty-vertical .twentytwenty-handle:after {
