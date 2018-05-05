@@ -8,7 +8,7 @@
 		<title>Rapport Projet SIA</title>
 
         <!-- CSS stylesheet -->
-        <link rel="stylesheet" type="text/css" href="rapport/css/stylesheetRapport.css">
+        <link rel="stylesheet" type="text/css" href="rapport/css/stylesheetRapport.css" media="screen">
 
         <!-- javascript -->
         <script src="rapport/js/jquery-3.3.1.min.js"></script>
@@ -16,10 +16,6 @@
         <script src="rapport/js/jquery.twentytwenty.js"></script>
         <script defer="true">
         $(document).ready(function(){
-            $("#containerNormal").twentytwenty();
-            $("#containerDisplacement").twentytwenty();
-            $("#containerToneMapping").twentytwenty();
-            $("#containerTessellation").twentytwenty();
             $(".twentytwenty-container").twentytwenty({
                 default_offset_pct: 0.5, // How much of the before image is visible when the page loads
                 before_label: "Image 1", // Set a custom before label
@@ -231,7 +227,7 @@
                     <p>
                         Voici un comparatif de la surface de Mars, avec le Normal Mapping désactivé (Image 1) puis activé (Image 2):
                     </p>
-                    <div id="containerNormal">
+                    <div id="containerNormal" class="twentytwenty-container">
                         <!-- The before image is first -->
                         <img src="rapport/images/normal_avant.jpg" />
                         <!-- The after image is last -->
@@ -246,7 +242,7 @@
                     <p>
                         Voici un comparatif de la surface de Mars, avec le Displacement Mapping désactivé (Image 1) puis activé (Image 2):
                     </p>
-                    <div id="containerDisplacement">
+                    <div id="containerDisplacement" class="twentytwenty-container">
                         <!-- The before image is first -->
                         <img src="rapport/images/disp_avant.jpg" />
                         <!-- The after image is last -->
@@ -274,7 +270,7 @@
                     <p>
                         Voici un comparatif de la surface de Mars, avec une faible Tessellation (5 divisions, Image 1) puis avec une forte Tessellation (8 divisions, Image 2):
                     </p>
-                    <div id="containerTessellation">
+                    <div id="containerTessellation" class="twentytwenty-container">
                         <!-- The before image is first -->
                         <img src="rapport/images/tessel_avant.jpg" />
                         <!-- The after image is last -->
@@ -288,7 +284,7 @@
                         <br/>
                         Voici une comparaison entre l'affichage du même programme sur Firefox (Image 1) et Chrome (Image 2).
                     </p>
-                    <div id="containerToneMapping">
+                    <div id="containerToneMapping" class="twentytwenty-container">
                         <!-- The before image is first -->
                         <img src="rapport/images/color-firefox.jpg" />
                         <!-- The after image is last -->
