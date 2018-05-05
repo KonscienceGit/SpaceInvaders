@@ -14,31 +14,20 @@
         <script src="rapport/js/jquery-3.3.1.min.js"></script>
         <script src="rapport/js/jquery.event.move.js"></script>
         <script src="rapport/js/jquery.twentytwenty.js"></script>
-        <script>
+        <script defer="true">
         $(document).ready(function(){
-            $(function(){
-                $("#containerNormal").twentytwenty();
-            });
-            $(function(){
-                $("#containerDisplacement").twentytwenty();
-            });
-            $(function(){
-                $("#containerToneMapping").twentytwenty();
-            });
-            $(function(){
-                $("#containerTessellation").twentytwenty();
-            });
-            $(function(){
-                $(".twentytwenty-container").twentytwenty({
-                    default_offset_pct: 0.5, // How much of the before image is visible when the page loads
-                    before_label: "Image 1", // Set a custom before label
-                    after_label: "Image 2", // Set a custom after label
-                    move_with_handle_only: false, // Allow a user to swipe anywhere on the image to control slider movement.
-                    click_to_move: true // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
-                });
+            $("#containerNormal").twentytwenty();
+            $("#containerDisplacement").twentytwenty();
+            $("#containerToneMapping").twentytwenty();
+            $("#containerTessellation").twentytwenty();
+            $(".twentytwenty-container").twentytwenty({
+                default_offset_pct: 0.5, // How much of the before image is visible when the page loads
+                before_label: "Image 1", // Set a custom before label
+                after_label: "Image 2", // Set a custom after label
+                move_with_handle_only: false, // Allow a user to swipe anywhere on the image to control slider movement.
+                click_to_move: true // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
             });
         });
-
         </script>
 	</head>
 
@@ -224,6 +213,12 @@
                         Ensuite, avec l'aide de logiciels permettant la création de normal maps et displacement maps (<a href="https://www.crazybump.com/">CrazyBump</a> et <a href="https://cpetry.github.io/NormalMap-Online/">NormalMap Online</a>),
                         la map d'altitude png fut convertie en <a href="src/medias/maps/mars/Blended_NRM_4K.png">normal map</a> et <a href="src/medias/maps/mars/Blended_DISP.jpg">displacement map</a>, dont l'utilité sera détaillée par la suite.<br/>
                     </p>
+
+                    <h3>Normal mapping, Tessellation et Displacement mapping</h3>
+                    <p>
+                        Lorsque l'on désire générer un objet réaliste, il y a plusieurs approches possibles, chacune possédant un coût en ressources (coût en calcul ou en mémoire). Un objet peut obtenir un grand niveau de détail si sa définition (en polygones) est très haute, au sacrifice d'une grande complexité de l'objet, très coûteuse en ressources, à la fois lors de la création de l'objet par un graphiste, mais également au moment du rendu pour l'affichage de l'objet et la projection des ombres.
+                        Une solution ingénieuse et bien plus économique, est l'utilisation de normal maps et displacement map (que l'on peut traduire en français par carte de normales, et carte de déplacement ou d'offset).
+                    </p>
                     <h3>Le Normal Mapping</h3>
                     <p>
                         Le Normal Mapping permet de simuler le relief d'une surface, il agit comme un filtre d'ombre ajouté par dessus la texture (couleur originale) d'un objet. Le procédé consiste, dans la pipeline de rendu graphique,
@@ -303,6 +298,7 @@
 
                 <div id="part5">
                     <h2>V: Fonctionnalitées</h2>
+                    <h3>Redimensionnement dynamique de la fenêtre de rendu</h3>
                     <h3>Fonction plein écran (fullscreen)</h3>
                     <p>
                         La touche <strong>f</strong> permet l'affichage plein écran de la fenêtre de jeu.<br/>
