@@ -4,7 +4,7 @@
 */
 
 html, body {
-    background:#dfbe9f;
+    background:#d2bb79;
     padding: 0;
     margin: 0;
 }
@@ -51,10 +51,11 @@ html, body {
     padding-right: 1%;
     width: 72%;
     height: 100%;
-    background-color: #f2e5d9;
+    background-color: #f2ebd9;
     font-size: 17px;
     font-family: "Arial";
   }
+
 
 h1,h2 {
     font-family: "Times New Roman";

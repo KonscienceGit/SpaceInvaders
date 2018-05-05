@@ -2,35 +2,43 @@
 <html>
     <head profile="http://www.w3.org/2005/10/profile">
         <link rel="icon" type="image/png" href="src/medias/images/favicon.ico">
-		<meta charset=UTF-8>
+		<meta charset="UTF-8">
 		<meta name="author" content="Poinsignon Nicolas">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Rapport Projet SIA</title>
-        <!-- javascript -->
-        <script src="rapport/js/jquery-3.3.1.min.js"></script>
-        <script src="rapport/js/jquery.event.move.js"></script>
-        <script src="rapport/js/jquery.twentytwenty.js"></script>
 
         <!-- CSS stylesheet -->
         <link rel="stylesheet" type="text/css" href="rapport/css/stylesheetRapport.css">
 
+        <!-- javascript -->
+        <script src="rapport/js/jquery-3.3.1.min.js"></script>
+        <script src="rapport/js/jquery.event.move.js"></script>
+        <script src="rapport/js/jquery.twentytwenty.js"></script>
         <script>
         $(function(){
-            $("#container1").twentytwenty();
+            $("#containerNormal").twentytwenty();
+        });
+        $(function(){
+            $("#containerDisplacement").twentytwenty();
+        });
+        $(function(){
+            $("#containerToneMapping").twentytwenty();
+        });
+        $(function(){
+            $("#containerTessellation").twentytwenty();
         });
         $(function(){
             $(".twentytwenty-container").twentytwenty({
                 default_offset_pct: 0.5, // How much of the before image is visible when the page loads
-                before_label: "Firefox", // Set a custom before label
-                after_label: "Chrome", // Set a custom after label
+                before_label: "Image 1", // Set a custom before label
+                after_label: "Image 2", // Set a custom after label
                 move_with_handle_only: false, // Allow a user to swipe anywhere on the image to control slider movement.
                 click_to_move: true // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
                 });
             });
         </script>
-
-
 	</head>
+
 	<body>
         <div id="wrapper">
             <!-- Panneau gauche (liens hypertext) -->
@@ -41,46 +49,49 @@
                 <a href="https://github.com/KonscienceGit">mon GitHub repository</a><br/><br/>
                 <a href="https://www.linkedin.com/in/nicolas-poinsignon-806a87154/">mon profil LinkedIn</a>
                 <h3>Aller à la section:</h3>
-                <a href="#part0"><h2>Titre</h2></a>
-                <a href="#part1"><h3>I: Introduction</h3></a>
-                <a href="#part2"><h3>II: Mécanismes de jeu</h3></a>
-                <a href="#part3"><h3>III: Contrôles</h3></a>
-                <a href="#part4"><h3>IV: Graphismes</h3></a>
-                <a href="#part5"><h3>V: Fonctionnalitées</h3></a>
-                <a href="#part6"><h3>VI: Conclusion</h3></a>
-                <a href="#part7"><h3>VII: Sources</h3></a>
+                <h2><a href="#part0">Titre</a></h2>
+                <h3><a href="#part1">I: Introduction</a></h3>
+                <h3><a href="#part2">II: Mécanismes de jeu</a></h3>
+                <h3><a href="#part3">III: Contrôles</a></h3>
+                <h3><a href="#part4">IV: Graphismes</a></h3>
+                <h3><a href="#part5">V: Fonctionnalitées</a></h3>
+                <h3><a href="#part6">VI: Conclusion</a></h3>
+                <h3><a href="#part7">VII: Sources</a></h3>
                 <h3>Autres liens:</h3>
-                <a href="index.html" > <h3>Retour à la page d'accueil</h3></a>
-                <a href="src/html/marsInvaders.html" > <h3>Accéder au jeu</h3></a>
+                <h3><a href="index.html" >Retour à la page d'accueil</a></h3>
+                <h3><a href="src/html/marsInvaders.html" >Accéder au jeu</a></h3>
                 </div>
             </div>
 
             <!-- Panneau droite (canvas) -->
             <div id="scrollableCanvas">
-                <header></header>
-
                 <div id="part0">
                     <h1>Rapport de projet de Synthèse d'Images Avancée</h1>
                     <p>Auteur: Poinsignon Nicolas</p>
-                    <p>Date: 4 Mai 2018</p>
+                    <p>Date de publication: 4 Mai 2018</p>
+                    <p>Date de dernière mise à jour: 5 Mai 2018</p>
                 </div>
-
 
                 <div id="part1">
                     <h2>I: Introduction</h2>
                     <p>
                     Ce rapport a pour but de présenter le résultat du projet qui consiste en la réalisation d'une application de jeu, plus couramment connu sous le nom de jeu vidéo.
-                    Seront abordés, les mécanismes de jeu et leur implémentation dans un langage de programmation, la conception et mise en place de graphismes aboutis, ainsi que diverses fonctionnalitées pouvant être utilisées dans des jeux ou plus généralement dans tout type d'application 3D.
+                    Seront abordés, les mécanismes de jeu et leur implémentation dans un langage de programmation, la conception et mise en place de graphismes aboutis,
+                    ainsi que diverses fonctionnalitées pouvant être utilisées dans des jeux ou plus généralement dans tout type d'application 3D.
                     </p>
                     <p>
                     Le sujet de ce projet est la création d'un jeu fortement inspiré du célèbre jeu Space Invaders, comprenant les fonctionnalitées du jeu original ainsi qu'une sélection de fonctionnalitées supplémentaires.
                     </p>
                     <p>
-                    Space Invaders est un jeu Japonais sorti en 1978 sur borne d'arcade. Qualifié de "shoot them up", le but du jeu est de piloter un vaisseau et de défendre la terre contre des aliens. Le joueur contrôle le vaisseau en bas de l'écran et les aliens, en haut de l'écran, avancent lentement vers le sol et font feux sur le joueur. Le joueur doit alors utiliser les armes de son vaisseau pour défendre la terre et venir à bout des aliens. Le jeu consiste en un certain nombre de vagues, chacune plus difficiles que les autres, et d'un système de points, permettant au joueur de comparer ses progrès.</p>
+                    Space Invaders est un jeu Japonais sorti en 1978 sur borne d'arcade. Qualifié de "shoot them up", le but du jeu est de piloter un vaisseau et de défendre la terre contre des aliens.
+                    Le joueur contrôle le vaisseau en bas de l'écran et les aliens, en haut de l'écran, avancent lentement vers le sol et font feux sur le joueur. Le joueur doit alors utiliser les armes de son vaisseau pour défendre
+                    la terre et venir à bout des aliens. Le jeu consiste en un certain nombre de vagues, chacune plus difficiles que les autres, et d'un système de points, permettant au joueur de comparer ses progrès.</p>
 
                     <h3>Note sur les résolutions et formats supportés</h3>
-                    <p>Le jeu et son GUI ont été conçus (avec le mode plein écran activé) sur la base du format 4:3 et supporte les formats plus larges (16:9 et +), et supporte toute résolution. L'utilisation de format plus étroit que 4:3 peut rendre une partie du GUI en dehors de la vue caméra.
-                    Notez que ne pas jouer au jeu en mode plein écran augmente la largeur du format, à cause des barres de navigation.</p>
+                    <p>
+                        Le jeu et son GUI ont été conçus (avec le mode plein écran activé) sur la base du format 4:3 et supporte les formats plus larges (16:9 et +), et supporte toute résolution. L'utilisation de format plus étroit que 4:3
+                        peut rendre une partie du GUI en dehors de la vue caméra.
+                        Notez que ne pas jouer au jeu en mode plein écran augmente la largeur du format, à cause des barres de navigation.</p>
 
                     <h3>Bibliothèques JavaScript utilisées</h3>
                     <h4>Pour le jeu:</h4>
@@ -102,7 +113,7 @@
                     <h3>Architecture</h3>
                     <p>Les fichiers et objets <strong>principaux</strong> suivent cette hiérarchie de dépendance:</p>
                     <ul>
-                        <li>main() (<a href="src/js/main_MarsInvaders.js" >main_MarsInvaders.js</a>)</li>
+                        <li>main() (<a href="src/js/main_MarsInvaders.js">main_MarsInvaders.js</a>)</li>
                         <ul>
                         	<li>animate() boucle d'animation et de rendu</li>
                     		<li>onWindowResize() redimensionne la fenêtre de rendu si modifiée</li>
@@ -113,7 +124,6 @@
                             </ul>
                         </ul>
                     </ul>
-
                 </div>
 
                 <div id="part2" >
@@ -125,38 +135,42 @@
                     <h2>III: Contrôles</h2>
                     <p>
                         <table>
-                          <tr>
-                            <td>Menu des options graphiques</td>
-                            <td>H</td>
-                          </tr>
-                          <tr>
-                            <td>Se déplacer (gauche/droite)</td>
-                            <td>Touches fléchées</td>
-                          </tr>
-                          <tr>
-                            <td>Faire feu</td>
-                            <td>Barre espace</td>
-                          </tr>
-                          <tr>
-                            <td>Mode Invincible</td>
-                            <td>I</td>
-                          </tr>
-                          <tr>
-                            <td>Tuer tous les ennemis</td>
-                            <td>K</td>
-                          </tr>
-                          <tr>
-                            <td>Perdre la partie</td>
-                            <td>L</td>
-                          </tr>
-                          <tr>
-                            <td>Plein écran</td>
-                            <td>F</td>
-                          </tr>
-                          <tr>
-                            <td>Screenshot</td>
-                            <td>P</td>
-                          </tr>
+                            <tr>
+                                <th>Fonctionnalité</th>
+                                <th>Raccourci</th>
+                            </tr>
+                            <tr>
+                                <td>Menu des options graphiques</td>
+                                <td>H</td>
+                            </tr>
+                            <tr>
+                                <td>Se déplacer (gauche/droite)</td>
+                                <td>Touches fléchées</td>
+                            </tr>
+                            <tr>
+                                <td>Faire feu</td>
+                                <td>Barre espace</td>
+                            </tr>
+                            <tr>
+                                <td>Mode Invincible</td>
+                                <td>I</td>
+                            </tr>
+                            <tr>
+                                <td>Tuer tous les ennemis</td>
+                                <td>K</td>
+                            </tr>
+                            <tr>
+                                <td>Perdre la partie</td>
+                                <td>L</td>
+                            </tr>
+                            <tr>
+                                <td>Plein écran</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>Screenshot</td>
+                                <td>P</td>
+                            </tr>
                         </table>
                         Les autres touches et fonctionnalitées n'ont malheureusement pas pu êtres implémentées à temps.
                     </p>
@@ -166,11 +180,16 @@
                     <h2>IV: Graphismes</h2>
                     <h3>Les vaisseaux</h3>
                     <p>
-                        Les vaisseaux du joueur et des ennemis sont des objets 3D modélisés sous Blender.
-                        ils ont été exportés en .obj puis chargés dans le jeu en temps que THREE.Mesh grâce à la bibliothèque OBJLoader.</p>
+                        Les vaisseaux du joueur et des ennemis sont des objets 3D modélisés sous Blender. Ils ont été exportés en .obj puis chargés dans le jeu en temps que THREE.Mesh grâce à la bibliothèque OBJLoader.
+                        Le matériau utilisé pour les vaisseaux est le matériau "Standard", qui offre un aspect métallisé grâce aux effets de réflexion spéculaire supporté par ce matériau.
+                        Afin de mieux discerner les vies et pouvoir profiter pleinement des détails du modèle 3D, les vaisseaux représentant les vies du joueur en haut à droite de l'écran utilisent eux un matériaux "Normal",
+                        dont la couleur de surface dépend de l'orientation des normales faces à la caméra. Ce matériau, par défaut, ne subit pas l'éclairage de la scène, toute surface du matériau est donc éclairée quel que soit son orientation,
+                        ce qui permet, combiné aux couleurs, d'attirer le regard du joueur.
                     </p>
                     <h3>L'arrière plan</h3>
                     <p>
+                        L'arrière plan de la scène est composé de deux éléments: la skybox représentant la Voie Lactée, ainsi que la planète Mars.<br/>
+                        <br/>
                         <strong>La Skybox</strong> est une sphère dont les normales ont étés inversés<br/>
                         <code>
                             skybox.material.side = THREE.BackSide;<br/>
@@ -182,30 +201,92 @@
                         </code>
                         et dont la texture (map de couleur) provient d'une image de synthèse de la <a href="https://www.solarsystemscope.com/textures/download/8k_stars_milky_way.jpg">Voie Lactée</a>.<br/>
                         <br/>
-                        <strong>La planète mars</strong> contient plusieurs aspects graphiques.<br/>
-                        La map de couleur de mars provient du site <a hreff="https://www.solarsystemscope.com/textures/download/8k_mars.jpg">SolarSytemScope</a>.<br/>
-                        Les "displacement map" et "normal map" ont été créés au moment, à partir de la cartographie d'altitude de mars, de logiciels de cartographie et de création de normal map, détaillé ci-dessous.<br/>
+                        <strong>La planète Mars</strong> contient plusieurs aspects graphiques.<br/>
+                        La map de couleur de Mars provient du site <a hreff="https://www.solarsystemscope.com/textures/download/8k_mars.jpg">SolarSytemScope</a>.<br/>
+                        Les "displacement map" et "normal map" ont été créés au moment, à partir de la cartographie d'altitude de Mars, de logiciels de cartographie et de création de normal map, détaillé ci-dessous.<br/>
                         <br/>
-                        <strong>Conversion de la cartographie de mars</strong><br/>
-                        La carte d'altitude suivante <a href="https://astrogeology.usgs.gov/search/map/Mars/Topography/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2">Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2</a>, au format tiff (altitude encodée sur 16 bits),
-                        fut convertie en deux images png (grayscale, niveau de gris sur 8 bits), grâce à <a href="http://openev.sourceforge.net/">OpenEV</a>.<br/>
-                        Chacune de ces deux images représentant des niveaux d'altitudes différents. (Filtre logarithmique pour émuler la profondeur de détail 16bit sur deux images de détail 8 bit.)<br/>
-                        La fusion par transparence de ces deux images png donne une représentation assez proche du relief de la surface de mars.<br/>
+                        <strong>Conversion de la cartographie de Mars</strong><br/>
+                        La carte d'altitude suivante <a href="https://astrogeology.usgs.gov/search/map/Mars/Topography/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2">Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2</a>,
+                        au format tiff (altitude encodée sur 16 bits),
+                        fut convertie en deux images png (grayscale, niveau de gris sur 8 bits), grâce à <a href="http://openev.sourceforge.net/">OpenEV</a>.
+                        Chacune de ces deux images représentant des niveaux d'altitudes différents. (Filtre logarithmique pour émuler la profondeur de détail 16bit sur deux images de détail 8 bit.)
+                        La fusion par transparence de ces deux images png donne une représentation assez proche du relief de la surface de Mars.
                         Sans être parfaite, je n'ai pas trouvé sur internet de map de cette qualitée.<br/>
-                        <small>
-                            (La conversion du fichier tiff causa plusieurs écrans bleus dus à des fuites de mémoire, le fichier faisant 11 gigabytes... Le format de fichier utilisé par la Nasa et le centre d'astrologie, <a href="https://www.awaresystems.be/imaging/tiff/bigtiff.html">BiGTIFF</a>, est une variante du format tiff supportant les fichiers de plus de 4 gigabytes)
-                        </small><br/>
-                        Ensuite, avec l'aide de logiciels permettant la création de normal maps et displacement maps (<a href="https://www.crazybump.com/">CrazyBump</a> et <a href="https://cpetry.github.io/NormalMap-Online/">NormalMap Online</a>), la map d'altitude png fut convertie en <a href="src/medias/maps/mars/Blended_NRM_4K.png">normal map</a> et <a href="src/medias/maps/mars/Blended_DISP.jpg">displacement map</a><br/>
+                        (La conversion du fichier tiff causa plusieurs écrans bleus dus à des fuites de mémoire, le fichier faisant 11 gigabytes... Le format de fichier utilisé par la Nasa et le centre d'astrologie,
+                        <a href="https://www.awaresystems.be/imaging/tiff/bigtiff.html">BiGTIFF</a>, est une variante du format tiff supportant les fichiers de plus de 4 gigabytes)<br/>
+                        Ensuite, avec l'aide de logiciels permettant la création de normal maps et displacement maps (<a href="https://www.crazybump.com/">CrazyBump</a> et <a href="https://cpetry.github.io/NormalMap-Online/">NormalMap Online</a>),
+                        la map d'altitude png fut convertie en <a href="src/medias/maps/mars/Blended_NRM_4K.png">normal map</a> et <a href="src/medias/maps/mars/Blended_DISP.jpg">displacement map</a>, dont l'utilité sera détaillée par la suite.<br/>
                     </p>
+                    <h3>Le Normal Mapping</h3>
+                    <p>
+                        Le Normal Mapping permet de simuler le relief d'une surface, il agit comme un filtre d'ombre ajouté par dessus la texture (couleur originale) d'un objet. Le procédé consiste, dans la pipeline de rendu graphique,
+                        pendant le calcul de l'éclairage de l'objet, d'appliquer un modificateur sur les normales des faces de l'objet. Ainsi, en changeant l'orientation face à l'éclairage, on peut simuler des bosses, des creux,
+                        tout type de détail.<br/>
+                        Contrairement au Bump Mapping, qui n'utilise que des fichier images en niveaux de gris pour stocker et générer le relief, le Normal Mapping lui utilise une image png couleur avec transparence (RGB channels et alpha channel) dont chaque
+                        channel représente un vecteur en soit. Les couleurs rouge, vert et bleu représentent les trois axes d'un repère 3D et transcrivent l'orientation exacte que prendra la normales lors du calcul d'éclairage.
+                        L'alpha channel quand à lui peut être utilisé pour représenter l'altitude, dans le cadre d'un Displacement Mapping.
+                    </p>
+                    <p>
+                        Voici un comparatif de la surface de Mars, avec le Normal Mapping désactivé (Image 1) puis activé (Image 2):
+                    </p>
+                    <div id="containerNormal">
+                        <!-- The before image is first -->
+                        <img src="rapport/images/normal_avant.jpg" />
+                        <!-- The after image is last -->
+                        <img src="rapport/images/normal_apres.jpg" />
+                    </div>
+                    <h3>Note sur la différence des couleurs entre Firefox et Chrome</h3>
+                    <p>
+                        Malgré l'éclairage réaliste apporté par le Normal Mapping, l'objet reste néanmoins plat. Il est possible de modifier, dans la pipeline de rendu graphique, la position des vertex par le biais d'une displacement map.
+                        La displacement map consiste en une image en niveaux de gris, dont chaque pixel représente l'altitude (sur 8 bit, donc 256 niveaux d'altitude différent). Une fois appliquée à un objet,
+                        chaque vertex de l'objet est déplacé vers le haut, suivant l'intensité décrite par la map.
+                    </p>
+                    <p>
+                        Voici un comparatif de la surface de Mars, avec le Displacement Mapping désactivé (Image 1) puis activé (Image 2):
+                    </p>
+                    <div id="containerDisplacement">
+                        <!-- The before image is first -->
+                        <img src="rapport/images/disp_avant.jpg" />
+                        <!-- The after image is last -->
+                        <img src="rapport/images/disp_apres.jpg" />
+                    </div>
+                    <h3>La Tessellation</h3>
+                    <p>
+                        Le Displacement Mapping déplace les vertex de l'objet. Hors, si cet objet ne possède pas une densité de vertex suffisante sur sa surface, le Displacement Mapping aura un effet très grossier et adoucis.
+                        Afin d'obtenir de bons résultat, il est préférable d'augmenter la densité de vertex dans le mesh de l'objet. Pour la planète Mars, j'ai opté pour l'utilisation du mesh IcosaHedron (signifiant figure aux faces égales).
+                        L' IcosaHedron est à la base composé de 20 faces, chacunes de ces faces étant un triangle isocèle. Three.js offre la possibilité de "Tessellate" l'IcosaHedron, ce qui a pour effet de diviser chacunes de ces faces isocèles
+                        en 4 triangles isocèles. Le nombre de vertex obtenus est alors 20*4^divisions.
+                    </p>
+                    <p>
+                        Illustration d'un IcosaHedron:
+                    </p>
+                    <div id="containerImg">
+                        <img src="rapport/images/icosahedron.jpg" width="100%"/>
+
+                    </div>
+                    <p>
+                        Après un nombre suffisant de divisions, L'i=IcosaHedron ressemble à s'y méprendre à une sphère. En comparaison à une sphère classique, l'IcosaHedron offre une meilleure répartition de la densité de vertex. En effet, sur une sphère classique,
+                        on peut observer une densité plus élevée de vertex aux sommets et une densité plus faites à l'équateur, et on peut noter également que la sphère utilise des "quads", soit 4 vertex dans le même plan.
+                        L'IcosaHedron permet alors un plus grand niveau de détail pour un nombre égal de vertex.
+                    </p>
+                    <p>
+                        Voici un comparatif de la surface de Mars, avec une faible Tessellation (5 divisions, Image 1) puis avec une forte Tessellation (8 divisions, Image 2):
+                    </p>
+                    <div id="containerTessellation">
+                        <!-- The before image is first -->
+                        <img src="rapport/images/tessel_avant.jpg" />
+                        <!-- The after image is last -->
+                        <img src="rapport/images/tessel_apres.jpg" />
+                    </div>
                     <h3>Note sur la différence des couleurs entre Firefox et Chrome</h3>
                     <p>
                         Si l'on utilise la propriété de sur-exposition (altération du tone mapping, permettant de simuler une définition de couleur plus élevée), on remarque que le navigateur Firefox donne des résultats moins satisfaisants.<br/>
                         L'exposition du tone mapping est ajustée dans l'application par:<br/>
                         <code>renderer.toneMappingExposure = 2;</code> (1 par défaut)<br/>
                         <br/>
-                        Voici une comparaison entre l'affichage du même programme sur Firefox (à gauche) et Chrome (à droite).
+                        Voici une comparaison entre l'affichage du même programme sur Firefox (Image 1) et Chrome (Image 2).
                     </p>
-                    <div id="container1">
+                    <div id="containerToneMapping">
                         <!-- The before image is first -->
                         <img src="rapport/images/color-firefox.jpg" />
                         <!-- The after image is last -->
@@ -215,7 +296,6 @@
 
                 <div id="part5">
                     <h2>V: Fonctionnalitées</h2>
-                    <p></p>
                     <h3>Fonction plein écran (fullscreen)</h3>
                     <p>
                         La touche <strong>f</strong> permet l'affichage plein écran de la fenêtre de jeu.<br/>
@@ -227,12 +307,12 @@
                         Suite à une mise à jour de Chrome, la méthode originale ( <code>var x = window.open(imageURI);</code> ) ne marche plus.<br/>
                         Afin de pouvoir ouvrir des URI sur un nouvel onglet, il faut utiliser les balises html iframes:
                     </p>
-                        <code>
-                            var iframe = "&lt;iframe width='100%' height='100%' src='" + dataUrl + "'&gt;&lt;/iframe&gt;";<br/>
-                            var x = window.open();<br/>
-                            x.document.write(iframe);<br/>
-                            x.document.close();
-                        </code>
+                    <code>
+                        var iframe = "&lt;iframe width='100%' height='100%' src='" + dataUrl + "'&gt;&lt;/iframe&gt;";<br/>
+                        var x = window.open();<br/>
+                        x.document.write(iframe);<br/>
+                        x.document.close();
+                    </code>
                     <p>
                         Il faut également penser à autoriser les pop-up sur votre navigateur!
                         <br/>
@@ -242,13 +322,13 @@
                             <li>Chrome (testé sur v65.0.3325.181 (64-bit))</li>
                         </ul>
                     </p>
-
                 </div>
 
                 <div id="part6">
                     <h2>VI: Conclusion</h2>
                     <p>
-                        A l'instar du projet du semestre précédent sur la Synthèse d'images, travailler sur ce projet m'as permis d'apprendre énormément sur le déroulement en arrière plan des programmes de rendu graphiques, et renforce donc ma motivation à orienter mes études dans ce domaine.<br/>
+                        A l'instar du projet du semestre précédent sur la Synthèse d'images, travailler sur ce projet m'as permis d'apprendre énormément sur le déroulement en arrière plan des programmes de rendu graphiques,
+                        et renforce donc ma motivation à orienter mes études dans ce domaine.<br/>
                         A cause d'une mauvaise gestion du temps de travail de ma part, mais également d'une fin de semestre très chargée, je me suis trouvé dans l'incapacité de produire l'application dans l'état que je désirais.<br/>
                         Mais je reste satisfait de ce travail, et suis dorénavant encore plus motivé à le faire évoluer et à poursuivre dans ce domaine.
                     </p>
