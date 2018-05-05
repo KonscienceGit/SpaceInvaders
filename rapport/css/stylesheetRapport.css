@@ -44,12 +44,6 @@ html, body {
     font-family: "Times New Roman";
 }
 
-#text {
-
-    font-size: 18px;
-    background-color: #ece2c6;
-}
-
 #scrollableCanvas {
     float: right;
     margin-right: 8%;
@@ -61,10 +55,6 @@ html, body {
     font-size: 17px;
     font-family: "Arial";
   }
-
-#shyText {
-    font-size: 13px;
-}
 
 h1,h2 {
     font-family: "Times New Roman";
