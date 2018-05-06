@@ -17,53 +17,56 @@ html, body {
     padding: 0;
 }
 
-#leftMenu {
+#leftMenuContainer {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 15%;
+    top: 0px;
+    width: 16%;
     height: 100%;
-    background-color: #d2bb79;
+    background-color: #ece2c6;
 }
 
-#Menu {
+#Title {
+    position: relative;
+    margin-top: 0px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-size:1.9vw;
+    text-align:center;
     background-color: #d2bb79;
 }
 
 #textMenu {
-    position: fixed;
-    top: 0;
-    left: 1%;
-    padding-left: 1%;
-    padding-right: 1%;
-    right: 1%;
-    width: 13%;
-    height: 100%;
-    background-color: #ece2c6;
-    /*font-size: 18px;*/
-    /*font-size: 90%;*/
+    position:sticky;
+    padding-left: 5%;
     font-size:1vw;
-    font-size
     font-family: "Times New Roman";
 }
 
-#scrollableCanvas {
-    float: right;
+#scrollableContainer {
+    float:right;
     margin-right: 2%;
-    padding-left: 1%;
-    padding-right: 1%;
-    width: 78%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 80%;
     height: 100%;
     background-color: #f2ebd9;
-    /*font-size: 15px;*/
-    font-size: 90%;
-    /*font-size:0.9vw;*/
-    font-family: "Arial";
-  }
 
+  }
+#texte{
+    padding-left: 1%;
+    padding-right: 1%;
+    font-size: 100%;
+    text-align:justify;
+    font-family: "Arial";
+}
 
 h1,h2 {
     font-family: "Times New Roman";
+}
+
+h2 {
+    font-family: "Times New Roman";
+    text-decoration: underline;
 }
 
 tr,table{
