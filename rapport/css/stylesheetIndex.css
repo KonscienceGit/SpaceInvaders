@@ -4,6 +4,7 @@ html, body {
     overflow: hidden;
     background:black;
     background-image: url("../images/nasa.gov_CG_581910main_PIA14293_full.jpg");
+    font-size:1vw;
 }
 
 div.titlebox {

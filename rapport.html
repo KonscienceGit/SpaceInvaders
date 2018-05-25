@@ -43,8 +43,9 @@
                 </h1>
                 <div id="textMenu">
                     <p><strong>Poinsignon Nicolas</strong></p>
-                    <a href="https://github.com/KonscienceGit">mon GitHub repository</a><br/><br/>
-                    <a href="https://www.linkedin.com/in/nicolas-poinsignon-806a87154/">mon profil LinkedIn</a>
+                    <a href="https://github.com/KonscienceGit">mon GitHub repository</a><br/>
+                    <a href="https://www.linkedin.com/in/nicolas-poinsignon-806a87154/">mon profil LinkedIn</a><br/>
+                    npoinsignoncontact@gmail.com
                     <br/><br/>
                     <h3>Aller à la section:</h3>
                     <h2><a href="#part0">Titre</a></h2>
@@ -86,13 +87,13 @@
                         Le joueur contrôle le vaisseau en bas de l'écran et les aliens, en haut de l'écran, avancent lentement vers le sol et font feux sur le joueur. Le joueur doit alors utiliser les armes de son vaisseau pour défendre
                         la terre et venir à bout des aliens. Le jeu consiste en un certain nombre de vagues, chacune plus difficiles que les autres, et d'un système de points, permettant au joueur de comparer ses progrès.</p>
 
-                        <h3>Note sur les résolutions et formats supportés</h3>
+                        <h3>a. Note sur les résolutions et formats supportés</h3>
                         <p>
                             Le jeu et son GUI ont été conçus (avec le mode plein écran activé) sur la base du format 4:3 et supporte les formats plus larges (16:9 et +), et supporte toute résolution. L'utilisation de format plus étroit que 4:3
                             peut rendre une partie du GUI en dehors de la vue caméra.
                             Notez que ne pas jouer au jeu en mode plein écran augmente la largeur du format, à cause des barres de navigation.</p>
 
-                        <h3>Bibliothèques JavaScript utilisées</h3>
+                        <h3>b. Bibliothèques JavaScript utilisées</h3>
                         <h4>Pour le jeu:</h4>
                         <ul>
                             <li>dat.gui - permet la création facilitée de GUI interactif, utile pour le développement</li>
@@ -109,7 +110,7 @@
                             <li>twentytwenty (jquery.event.move et jquery.twentytwenty) - permet la création d'images comparatives, se dévoilant avec un slider (voir section Graphismes)</li>
                         </ul>
 
-                        <h3>Architecture</h3>
+                        <h3>c. Architecture</h3>
                         <p>Les fichiers et objets <strong>principaux</strong> suivent cette hiérarchie de dépendance:</p>
                         <ul>
                             <li>main() (<a href="src/js/main_MarsInvaders.js">main_MarsInvaders.js</a>)</li>
@@ -123,11 +124,45 @@
                                 </ul>
                             </ul>
                         </ul>
+                        <h3>d. Code source</h3>
+                        Le code source de ce projet est consultable librement sur mon GitHub repository: <a href="https://github.com/KonscienceGit/SpaceInvaders">https://github.com/KonscienceGit/SpaceInvaders</a>.
                     </div>
 
                     <div id="part2" >
                         <h2>II: Mécanismes de jeu</h2>
-                        <p></p>
+                        <p>
+                        <h3>a. Le but du jeu</h3>
+                        <p>
+                            Le but du jeu est de défendre aussi longtemps que possible la planète Mars des envahisseurs. Pour ce faire, le joueur dispose d'un
+                            vaisseau intercepteur armé d'un lance missiles, lui permettant de riposter face aux bataillons d'envahisseurs ennemis.
+                            Les envahisseurs sont innombrables, confrontent le joueur par vagues, et ouvrent également le feu sur le joueur.
+                        </p>
+                        <h3>b. Le joueur</h3>
+                        <p>
+                            Le joueur dispose d'un vaisseau intercepteur armé d'un lance missile à photons, à cause de la complexité
+                            de cet armement, il ne peut tirer qu'un missile à la fois. Cependant, chaque missile faisant mouche garantit
+                            la chute d'un envahisseur! Le vaisseau du joueur possède des réserves d'énergies, lui permettant, au moyen
+                            d'un générateur de champ, de le protéger contre d'éventuelles avaries. Cependant attention, les réserves d'énergies
+                            sont limitées et l'armement des envahisseurs est capable de mettre à genoux ce système de défense après une paire d'impacts.
+                        </p>
+                        <h3>c. Les ennemis</h3>
+                        <p>
+                            Les ennemis arrivent par vagues de 30, leur méthode de déplacement encore mystique aux yeux des hommes,
+                            consiste à osciller de gauche à droite puis à se rapprocher inexorablement de leur objectif. Les ennemis sont doués
+                            d'une conscience collective et seul l'ennemis le plus proche du joueur se chargera de faire feux. chaque
+                            missile ennemi est capable d'enlever une charge complète au système de défense du joueur. En revanche, le contact direct
+                            entre un ennemi et le joueur résulte en une défaite du joueur, chaque envahisseur étant prêt à se sacrifier
+                            pour atteindre leur but.
+                            Une fois un bataillon d'envahisseur défait, un nouveau prend le relais. Ce nouveau bataillon aura pris soin
+                            de compenser leurs défauts et d'augmenter les capacité destructives de leur missile ainsi que la vitesse
+                            de leurs vaisseaux. Chaque vague résulte donc en un match plus difficile.
+                        </p>
+                        <h3>d. Le score et la fin de partie</h3>
+                        <p>
+                            Les envahisseurs étant innombrables, c'est un combat sans fin! Mais pour distinguer le valeureux pilote qui
+                            sacrifia sa vie pour l'humanité, un score lui est attribué, chaque ennemis détruit lui rapportant des points.
+                            A la fin de la partie, le score final est indiqué, représentant l'avancement du joueur.
+                        </p>
                     </div>
 
                     <div id="part3" >
@@ -177,7 +212,7 @@
 
                     <div id="part4" >
                         <h2>IV: Graphismes</h2>
-                        <h3>Les vaisseaux</h3>
+                        <h3>a. Les vaisseaux</h3>
                         <p>
                             Les vaisseaux du joueur et des ennemis sont des objets 3D modélisés sous Blender. Ils ont été exportés en .obj puis chargés dans le jeu en temps que THREE.Mesh grâce à la bibliothèque OBJLoader.
                             Le matériau utilisé pour les vaisseaux est le matériau "Standard", qui offre un aspect métallisé grâce aux effets de réflexion spéculaire supporté par ce matériau.
@@ -189,7 +224,7 @@
                             Respectivement: Le vaisseau du joueur, un enemis, une vie du joueur.
                         </p>
                         <img src="rapport/images/ships.jpg" />
-                        <h3>L'arrière plan</h3>
+                        <h3>b. L'arrière plan</h3>
                         <p>
                             L'arrière plan de la scène est composé de deux éléments: la skybox représentant la Voie Lactée, ainsi que la planète Mars.<br/>
                             <br/>
@@ -221,12 +256,12 @@
                             la map d'altitude png fut convertie en <a href="src/medias/maps/mars/Blended_NRM_4K.png">normal map</a> et <a href="src/medias/maps/mars/Blended_DISP.jpg">displacement map</a>, dont l'utilité sera détaillée par la suite.<br/>
                         </p>
 
-                        <h3>Normal mapping, Tessellation et Displacement mapping</h3>
+                        <h3>c. Normal mapping, Tessellation et Displacement mapping</h3>
                         <p>
                             Lorsque l'on désire générer un objet réaliste, il y a plusieurs approches possibles, chacune possédant un coût en ressources (coût en calcul ou en mémoire). Un objet peut obtenir un grand niveau de détail si sa définition (en polygones) est très haute, au sacrifice d'une grande complexité de l'objet, très coûteuse en ressources, à la fois lors de la création de l'objet par un graphiste, mais également au moment du rendu pour l'affichage de l'objet et la projection des ombres.
                             Une solution ingénieuse et bien plus économique, est l'utilisation de normal maps et displacement map (que l'on peut traduire en français par carte de normales, et carte de déplacement ou d'offset).
                         </p>
-                        <h3>Le Normal Mapping</h3>
+                        <h3>d. Le Normal Mapping</h3>
                         <p>
                             Le Normal Mapping permet de simuler le relief d'une surface, il agit comme un filtre d'ombre ajouté par dessus la texture (couleur originale) d'un objet. Le procédé consiste, dans la pipeline de rendu graphique,
                             pendant le calcul de l'éclairage de l'objet, d'appliquer un modificateur sur les normales des faces de l'objet. Ainsi, en changeant l'orientation face à l'éclairage, on peut simuler des bosses, des creux,
@@ -244,7 +279,7 @@
                             <!-- The after image is last -->
                             <img src="rapport/images/normal_apres.jpg" />
                         </div>
-                        <h3>Le Displacement Mapping</h3>
+                        <h3>e. Le Displacement Mapping</h3>
                         <p>
                             Malgré l'éclairage réaliste apporté par le Normal Mapping, l'objet reste néanmoins plat. Il est possible de modifier, dans la pipeline de rendu graphique, la position des vertex par le biais d'une displacement map.
                             La displacement map consiste en une image en niveaux de gris, dont chaque pixel représente l'altitude (sur 8 bit, donc 256 niveaux d'altitude différent). Une fois appliquée à un objet,
@@ -259,7 +294,7 @@
                             <!-- The after image is last -->
                             <img src="rapport/images/disp_apres.jpg" />
                         </div>
-                        <h3>La Tessellation</h3>
+                        <h3>f. La Tessellation</h3>
                         <p>
                             Le Displacement Mapping déplace les vertex de l'objet. Hors, si cet objet ne possède pas une densité de vertex suffisante sur sa surface, le Displacement Mapping aura un effet très grossier et adoucis.
                             Afin d'obtenir de bons résultat, il est préférable d'augmenter la densité de vertex dans le mesh de l'objet. Pour la planète Mars, j'ai opté pour l'utilisation du mesh IcosaHedron (signifiant figure aux faces égales).
@@ -287,9 +322,10 @@
                             <!-- The after image is last -->
                             <img src="rapport/images/tessel_apres.jpg" />
                         </div>
-                        <h3>Note sur la différence des couleurs entre Firefox et Chrome</h3>
+                        <h3>g. Note sur la différence des couleurs entre Firefox et Chrome</h3>
                         <p>
-                            Si l'on utilise la propriété de sur-exposition (altération du tone mapping, permettant de simuler une définition de couleur plus élevée), on remarque que le navigateur Firefox donne des résultats moins satisfaisants.<br/>
+                            Si l'on utilise la propriété de sur-exposition (altération du tone mapping, permettant de simuler une définition de couleur plus élevée),
+                             on remarque que le navigateur Firefox donne des résultats moins satisfaisants.<br/>
                             L'exposition du tone mapping est ajustée dans l'application par:<br/>
                             <code>renderer.toneMappingExposure = 2;</code> (1 par défaut)<br/>
                             <br/>
@@ -305,31 +341,65 @@
 
                     <div id="part5">
                         <h2>V: Fonctionnalitées</h2>
-                        <h3>Redimensionnement dynamique de la fenêtre de rendu</h3>
-                        <h3>Fonction plein écran (fullscreen)</h3>
+                        <h3>a. Redimensionnement dynamique de la fenêtre de rendu</h3>
+                        <p>
+                            Pour effectuer un redimensionnement dynamique de la fenêtre de rendu, une méthode javascript répondant à une modification de la fenêtre dans
+                            le DOM met à jour les attributs du renderer et de la caméra principalement la hauteur et la largeur de la zone de rendu, ainsi que l'aspect de la caméra.<br/>
+                            <code>
+                                    function onWindowResize() {<br/>
+                                    camera.aspect = window.innerWidth / window.innerHeight;<br/>
+                                    camera.updateProjectionMatrix();<br/>
+                                    renderer.setSize( window.innerWidth, window.innerHeight );<br/>
+                                }
+                            </code>
+                        </p>
+                        <h3>b. Plein écran (fullscreen)</h3>
                         <p>
                             La touche <strong>f</strong> permet l'affichage plein écran de la fenêtre de jeu.<br/>
                             Pour se faire, la bibliothèque <a href="http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js">THREExFullScreen</a> est utilisée.
                         </p>
-                        <h3>Fonction capture écran (screenshot)</h3>
+                        <h3>c. Capture écran (screenshot)</h3>
                         <p>
                             La touche <strong>p</strong> permet d'ouvrir une capture d'écran dans un nouvel onglet.<br/>
                             Suite à une mise à jour de Chrome, la méthode originale ( <code>var x = window.open(imageURI);</code> ) ne marche plus.<br/>
-                            Afin de pouvoir ouvrir des URI sur un nouvel onglet, il faut utiliser les balises html iframes:
-                        </p>
+                            Afin de pouvoir ouvrir des URI sur un nouvel onglet, il faut utiliser les balises html iframes:<br/>
                         <code>
                             var iframe = "&lt;iframe width='100%' height='100%' src='" + dataUrl + "'&gt;&lt;/iframe&gt;";<br/>
                             var x = window.open();<br/>
                             x.document.write(iframe);<br/>
-                            x.document.close();
+                            x.document.close();<br/>
                         </code>
-                        <p>
                             Il faut également penser à autoriser les pop-up sur votre navigateur!
                             <br/>
                             Cette solution fonctionne sur:
                             <ul>
                                 <li>Firefox (testé sur v59.0.2 (64-bit))</li>
                                 <li>Chrome (testé sur v65.0.3325.181 (64-bit))</li>
+                            </ul>
+                        </p>
+                        <h3>d. Mode Invincible</h3>
+                        <p>
+                            La touche <strong>i</strong> permet au joueur de ne pas réagir aux missiles enemis.
+                        </p>
+                        <h3>e. Niveau suivant</h3>
+                        <p>
+                            La touche <strong>k</strong> permet de détruire tout les enemis, permettant de passer au niveau suivant instantannément. Attention, aucun points n'est gagné par cette méthode, et la difficultée continue d'augmenter.
+                        </p>
+                        <h3>f. Perdre la partie (Game Over)</h3>
+                        <p>
+                            La touche <strong>l</strong> permet de perdre instantannément la partie, affichant alors l'écran de fin de jeu et proposant au joueur de redémarrer une partie.
+                        </p>
+                        <h3>g. Options graphiques</h3>
+                        <p>
+                            La touche <strong>h</strong> permet d'ouvrir le menu des options graphiques généré par Dat.GUI. Ce menu n'affecte que l'arrière plan, et permet de:
+                            <ul>
+                                <li>Changer l'opacité de la Normal Map, permettant au choix d'atténuer ou d'augmenter la force des ombres sur Mars</li>
+                                <li>Changer l'échelle de la Displacement Map, permettant de choisir l'intensité du relief de Mars (par displacement mapping)</li>
+                                <li>Changer le nombre de polygones de la planète Mars (la valeur est le nombre de sous-divisions dans l'icosahedron, un nombre élevé tel que 7 ou 8 peut prendre un certain temps à se mettre à jour
+                                    (jusque 30 secondes) voir section <a href="#part4">IV: Graphismes</a>)</li>
+                                <li>Remettre les options graphiques par défaut (RESET)</li>
+                                <li>Activer ou désactiver la rotation de la planete Mars</li>
+                                <li>Changer le niveau du filtre anisotrope des textures de Mars et de l'arrière plan.</li>
                             </ul>
                         </p>
                     </div>
@@ -346,7 +416,8 @@
 
                     <div id="part7">
                         <h2>VII: Sources</h2>
-                        <h3>Bibliothèques JavaScript</h3>
+
+                        <h3>a. Bibliothèques JavaScript</h3>
                         <ul>
                             <li>jquery-3.3.1.min.js <a href="https://github.com/jquery/jquery">github.com/jquery/jquery</a></li>
                             <li>jquery.event.move.js, jquery.twentytwenty.js <a href="https://zurb.com/playground/twentytwenty">zurb.com/playground/twentytwenty</a></li>
@@ -357,7 +428,7 @@
                             <li>THREEx.FullScreen.min.js <a href="http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js">learningthreejs.com/data/THREEx/THREEx.FullScreen.js</a></li>
                             <li>OBJLoader.min.js <a href="https://github.com/mrdoob/three.js/tree/dev/examples/js/loaders">github.com/mrdoob/three.js/tree/dev/examples/js/loaders</a></li>
                         </ul>
-                        <h3>Imagerie, Textures et Cartographies</h3>
+                        <h3>b. Imagerie, Textures et Cartographies</h3>
                         <ul>
                             <li>Map de couleurs de Mars et de la Voie Lactée <a href="https://www.solarsystemscope.com/textures/">solarsystemscope.com/textures/</a></li>
                             <li>Map d'altitude de Mars, générée par le MOLA (Mars Orbiter Laser Altimeter) de la navette "Mars Global Surveyor" (MGS)<br/>
@@ -369,7 +440,7 @@
                     </div>
                 </div>
 
-                <footer>Dernière mise à jour: 6 Mai 2018 à 17h00</footer>
+                <footer>Dernière mise à jour: 6 Mai 2018</footer>
             </div>
         </div>
 	</body>
