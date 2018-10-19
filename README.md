@@ -50,7 +50,7 @@ This project's creation is further detailed [in this report](https://konscienceg
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](https://github.com/KonscienceGit/SpaceInvaders/blob/master/LICENCE) file for details
 
 ## Acknowledgments
 
@@ -120,7 +120,7 @@ La création de ce projet est plus amplement documentée [dans ce rapport](https
 
 ## License
 
-Le projet est sous la licence GNU General Public License v3.0 - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Le projet est sous la licence GNU General Public License v3.0 - voir le fichier [LICENSE](https://github.com/KonscienceGit/SpaceInvaders/blob/master/LICENCE) pour plus de détails.
 
 ## Sources et remerciements
 
