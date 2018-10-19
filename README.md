@@ -1,5 +1,8 @@
-[Lire en Français](https://github.com/)
+![Capture of the game Mars Invaders](https://github.com/KonscienceGit/SpaceInvaders/blob/master/Screenshoot/MIgame.jpg)
+
 # Mars Invaders (SpaceInvaders project) (English)
+[Lire en Français](https://github.com/)
+
 
 This is the resulting project of my Advanced Computer Graphic/Image Synthesis course, at the [University of Pau UPPA](https://www.univ-pau.fr/en/home.html). 
 
