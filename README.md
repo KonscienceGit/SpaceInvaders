@@ -70,3 +70,73 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 * [OpenEV, geospatial data visualizer](http://openev.sourceforge.net/)
 * [CrazyBump, tool for making normal and displacement maps](http://crazybump.com/)
 * [NormalMap Online, online tool for making normal and displacement maps](http://cpetry.github.io/NormalMap-Online/)
+
+# Mars Invaders (projet SpaceInvaders) (Français)
+
+Ceci est le projet résultant de mon cour de Synthèse d'Images Avancée, à l'[Université de Pau et des Pays de l'Adour UPPA](https://www.univ-pau.fr/en/home.html). 
+
+Le but du projet était de créer un jeu en JavaScript à l'aide de la librairie graphique WebGL, dans la lignée du célèbre jeu d'arcade Space Invders.
+
+## Comment l'utiliser
+Ce jeu utilise JavaScript donc vous n'avez besoin que d'un navigateur web supportant WebGL!
+
+Vous pouvez accéder au projet grâce à ces liens:
+* [Mars Invaders, le jeu](https://konsciencegit.github.io/SpaceInvaders/src/html/marsInvaders.html)
+* [Le compte rendu du projet](https://konsciencegit.github.io/SpaceInvaders/rapport.html) (documentation).
+
+Il est recommendé d'utiliser un ordinateur personnel, car les controles du jeu sont par clavier uniquement (pour le moment) mais vous pouvez tout de même consulter la documentation du projet ou accéder au menu principal du jeu par un appareil mobile.
+
+## Qu'est-ce exactement
+
+Ce projet est un petit jeu vidéo fait dans le cadre d'un projet universitaire. Le sujet était de créer un jeu similaire au jeu d'arcade Space Invaders, en utilisant JavaScript et l'API graphique WebGL.
+
+Ce programme inclut:
+* Une boucle de logique de jeu basique, similaire à Space Invaders, dont:
+  * Le traitement des entrées clavier du joueur
+  * La détection des collisions des projectiles
+  * Une visée intelligente primitive des enemis
+  * L'évolution progressive de la difficultée
+  * Un système de score
+  * Un système de vies et de "game over"
+
+* Un décor d'arriere plan détaillé:
+  * Un modèle fidèle et détaillé de la planète Mars, [que vous pouvez observer en détail sur mon github ici](https://github.com/KonscienceGit/MarsJS).
+  * Une skybox haute définition représentant la voie Lactée
+
+* Des objets basiques modélisés (sous blender)
+
+* Plusieurs techniques de programmation graphique, pouvant être ajustées en temps réel:
+  * Normal mapping
+  * Displacement mapping
+  * UV mapping
+  * Filtrage anisotropique
+  * Tessellation basique
+  * Backface culling (skybox)
+  * Modification basique de l'ordre de rendu d'un objet sur le Zbuffer (skybox)
+  
+## Comment
+
+La création de ce projet est plus amplement documentée [dans ce rapport](https://konsciencegit.github.io/SpaceInvaders/rapport.html).
+
+## License
+
+Le projet est sous la licence GNU General Public License v3.0 - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+## Sources et remerciements
+
+### Bibliothèques JavaScript
+* [three.min.js, la bibliotheque implémentant WebGL](https://threejs.org/build/three.min.js)
+* [OrbitControls.min.js, permettant le control de la caméra](https://github.com/mrdoob/three.js/blob/dev/examples/js/controls/OrbitControls.js)
+* [dat.gui.min.js, pour implémenter une interface simplement et rapidement](https://github.com/dataarts/dat.gui)
+* [jquery-3.3.1.min.js pour charger les ressources web](https://github.com/jquery/jquery)
+* [jquery.event.move.js, jquery.twentytwenty.js, pourl a comparaison dynamique d'images](https://zurb.com/playground/twentytwenty)
+* [Stats.min.js pour afficher les temps d'images](https://github.com/mrdoob/stats.js)
+* [THREEx.FullScreen.min.js pour afficher le naviguateur en plein écran](http://learningthreejs.com/data/THREEx/THREEx.FullScreen.js)
+* [OBJLoader.min.js pour charger des modèles 3D .OBJ](https://github.com/mrdoob/three.js/tree/dev/examples/js/loaders)
+
+### Outils, Textures and Cartographies
+* [Map de couleurs de Mars et de la Voie Lactée](https://www.solarsystemscope.com/textures/)
+* [Map d'altitude de Mars, générée par le MOLA (Mars Orbiter Laser Altimeter) de la navette "Mars Global Surveyor" (MGS)](https://astrogeology.usgs.gov/search/map/Mars/Topography/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2)
+* [OpenEV, visualiseur de données géospatiales](http://openev.sourceforge.net/)
+* [CrazyBump, éditeur de map d'altitude et de normal maps](http://crazybump.com/)
+* [NormalMap Online, éditeur de map d'altitude et de normal maps](http://cpetry.github.io/NormalMap-Online/)
