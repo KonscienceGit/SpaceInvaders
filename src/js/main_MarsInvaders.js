@@ -176,7 +176,7 @@ var main = function () {
     }
 
     function loadingScene() {
-        var normalMapMars = textureLoader.load("../medias/maps/mars/Blended_NRM_4K.png");
+        var normalMapMars = textureLoader.load("../medias/maps/mars/Blended_NRM.png");
         //due to GitHub limitation of 25Mo per file, had to downsize the normal map. Original map was 8192x4096px.
         //var normalMapMars = textureLoader.load("maps/mars/Blended_NRM.png");
         normalMapMars.anisotropy = sufficientAnisotropy;
