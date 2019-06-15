@@ -15,7 +15,7 @@ var BattleManager = function (scene) {
     this.cyberFont;
     this.setFont = function(font){
         this.cyberFont = font;
-    }
+    };
 
     this.objLoader = new THREE.OBJLoader();
 
@@ -27,7 +27,7 @@ var BattleManager = function (scene) {
             _this.hudManager.drawLives(object.children[1].geometry);
             _this.initiated = true;
         });
-    }
+    };
 
     //the player Ship
     this.playerShip;
@@ -47,11 +47,11 @@ var BattleManager = function (scene) {
 
     this.nextLevel = function (){
         this.levelPopUp = true;
-        this.hudManager.displayLevelUp(this.currentLevel)
+        this.hudManager.displayLevelUp(this.currentLevel);
         this.currentLevel++;
         this.removeAllEnemies();
         this.difficultySpeed += 0.001;
-    }
+    };
 
     this.startNextLevel = function (){
         this.levelPopUp = false;
@@ -59,7 +59,7 @@ var BattleManager = function (scene) {
         this.hudManager.removeLevelUp();
         this.setEnemiesVisible();
         this.enemiesAlive = this.enemyNumber;
-    }
+    };
 
     this.playerFireMissile = function () {
         this.playerMissile = new PlayerMissile(this.geomMissile, this.matRed,
@@ -67,7 +67,7 @@ var BattleManager = function (scene) {
                                         this.playerShip.shipMesh.position.y);
         scene.add(this.playerMissile.missile);
         this.playerMissileIsLive = true;
-    }
+    };
     this.checkPlayerMissileCollision = function () {
         //for each enemy
         for (var i = 0; i < this.enemyNumber ; i++) {
@@ -94,7 +94,7 @@ var BattleManager = function (scene) {
                 }
             }
         }
-    }
+    };
 
     this.checkEnemyMissileCollision = function () {
         //first we check if both the game is live and the missile still exist
@@ -126,7 +126,7 @@ var BattleManager = function (scene) {
                 }
             }
         }
-    }
+    };
 
     //enemies
     //this.geomEnemy = new THREE.BoxGeometry(0.1, 0.1, 0.03);
@@ -158,11 +158,11 @@ var BattleManager = function (scene) {
             this.enemyArray[i] = new Enemy(this.geomEnemy, this.matDarkGreen, dynPosX , dynPosY);
             this.enemyArray[i].enemy.visible = false;
             scene.add(this.enemyArray[i].enemy);
-            if (i == (this.enemyNumber - 1)) {
+            if (i === (this.enemyNumber - 1)) {
                 this.lowestEnemyYPos = dynPosY;
             }
         }
-    }
+    };
     this.matGreen = new THREE.MeshBasicMaterial({color: 0x00ff00});
     this.meshEnemyMissile = new THREE.Mesh(this.geomMissile, this.matGreen);
     this.enemyMissile;
@@ -176,7 +176,7 @@ var BattleManager = function (scene) {
         this.enemyMissileIsLive = true;
         this.targetAcquired = false;
         this.framesBeforeEnemyFire = this.framesBetweenEachEnemyFire;
-    }
+    };
 
     this.moveEnemies = function () {
         //checking if enemies can fire
@@ -225,7 +225,7 @@ var BattleManager = function (scene) {
         if (this.targetAcquired){
             this.enemiesFireMissile(numberClosest);
         }
-    }
+    };
 
     this.resetEnemiesPosition = function () {
         for (var i = 0; i < this.enemyNumber; i++) {
@@ -236,18 +236,18 @@ var BattleManager = function (scene) {
             }
         }
         this.distanceTraveledByEnemies = 0;
-    }
+    };
 
     this.killAllEnemies = function(){
         this.nextLevel();
-    }
+    };
 
     this.removeAllEnemies = function (){
         for (var i = 0; i < this.enemyNumber; i++) {
             //scene.remove(this.enemyArray[i].enemy) /*crash the game?!*/
             this.enemyArray[i].enemy.visible = false;
         }
-    }
+    };
 
     this.updatePlayerMissile = function () {
         //if the missile is still on the game zone then move the missile and
@@ -262,7 +262,7 @@ var BattleManager = function (scene) {
             scene.remove(this.playerMissile.missile);
             this.playerMissileIsLive = false;
         }
-    }
+    };
 
     this.updateEnemyMissile = function () {
         //if the missile is still on the game zone then move the missile and
@@ -277,7 +277,7 @@ var BattleManager = function (scene) {
             scene.remove(this.enemyMissile.missile);
             this.enemyMissileIsLive = false;
         }
-    }
+    };
 
     this.lowerEnemies = function () {
         this.enemyWay = -this.enemyWay;
@@ -294,13 +294,13 @@ var BattleManager = function (scene) {
                 }
             }
         }
-    }
+    };
 
     this.setEnemiesVisible = function (){
         for (var i = 0; i < this.enemyNumber; i++) {
             this.enemyArray[i].enemy.visible = true;
         }
-    }
+    };
 
     //update enemies, missiles, and then check for collision if needed
     this.updateBattle = function () {
@@ -322,20 +322,19 @@ var BattleManager = function (scene) {
         if (this.changingWay){
             this.lowerEnemies();
         }
-    }
+    };
 
     this.invinciblePlayer = false;
     this.toggleInvincible = function (){
         if (this.invinciblePlayer){
             this.invinciblePlayer = false;
             this.playerShip.shipMesh.material = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
-            this.hudManager.removeInvincible
         } else {
             this.invinciblePlayer = true;
             this.playerShip.shipMesh.material = new THREE.MeshStandardMaterial({color: 0xaaaa00});
 
         }
-    }
+    };
 
     this.gameOver = function(){
         this.playerShip.removePlayerShip();
@@ -347,14 +346,14 @@ var BattleManager = function (scene) {
             scene.remove(this.enemyMissile.missile);
         }
         this.gameOverScreen = true;
-    }
+    };
 
     this.restart = function (){
         this.removeAllEnemies();
         this.hudManager.removeHud();
         this.currentLevel = 1;
         this.init();
-    }
+    };
 
     this.init = function (){
         this.gameOverScreen = false;
@@ -363,7 +362,7 @@ var BattleManager = function (scene) {
         this.hudManager = new HudManager(scene,this.cyberFont);
         this.hudManager.startScreen();
         this.loadObj();
-    }
+    };
 
     this.beginGame = function(){
         this.startScreen = false;
@@ -372,6 +371,6 @@ var BattleManager = function (scene) {
         this.currentLevel++;
         this.hudManager.fromStartToGameTransition();
         this.playerShip.setPlayerVisible();
-    }
+    };
 
-}
+};

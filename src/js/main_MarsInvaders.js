@@ -375,11 +375,7 @@ var main = function () {
         }
 
         function toggleRotation() {
-            if (marsRotate) {
-                marsRotate = false;
-            } else {
-                marsRotate = true;
-            }
+            marsRotate = !marsRotate;
         }
 
         function normalMapScaleChanged() { matMars.normalScale.set ( effectController.NormalMapScale, effectController.NormalMapScale ); }

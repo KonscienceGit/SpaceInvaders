@@ -5,16 +5,14 @@ var PlayerMissile = function (geomMissile, matRed,xPos,yPos) {
     this.missile.position.z = 3;
 
     this.moveAndCheck = function () {
-        var actualX = this.missile.position.x;
-        var actualY = this.missile.position.y;
-        if (actualY>0.9) {
+        if ( this.missile.position.y > 0.9) {
             return false;
         } else {
             this.missile.position.y +=0.05;
             return true;
         }
     }
-}
+};
 
 var EnemyMissile = function (geomMissile, matGreen,xPos,yPos) {
     this.missile = new THREE.Mesh(geomMissile, matGreen);
@@ -23,16 +21,14 @@ var EnemyMissile = function (geomMissile, matGreen,xPos,yPos) {
     this.missile.position.z = 3;
 
     this.moveAndCheck = function (difficultySpeed) {
-        var actualX = this.missile.position.x;
-        var actualY = this.missile.position.y;
-        if (actualY< -0.8) {
+        if (this.missile.position.y < -0.8) {
             return false;
         } else {
             this.missile.position.y -= 5*difficultySpeed;
             return true;
         }
     }
-}
+};
 
 var PlayerShip = function (scene,hudManager,geomShip){
     this.matShip = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
@@ -45,17 +41,17 @@ var PlayerShip = function (scene,hudManager,geomShip){
     this.shipMesh.visible = false;
     this.setPlayerVisible = function(){
         this.shipMesh.visible = true;
-    }
+    };
     this.moveLeft = function(){
         this.shipMesh.position.x -= 0.015;
-    }
+    };
     this.moveRight = function(){
         this.shipMesh.position.x += 0.015;
-    }
+    };
     this.removePlayerShip = function(){
         scene.remove(this.shipMesh);
-    }
-}
+    };
+};
 
 var Enemy = function (geomEnemy, matDarkGreen, xPos,yPos) {
     this.enemy = new THREE.Mesh(geomEnemy, matDarkGreen);
@@ -63,4 +59,4 @@ var Enemy = function (geomEnemy, matDarkGreen, xPos,yPos) {
     this.enemy.position.y = yPos;
     this.enemy.position.z = 3;
     this.enemy.visible = true;
-}
+};

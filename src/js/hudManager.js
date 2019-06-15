@@ -84,7 +84,7 @@ var HudManager = function (scene,cyberFont) {
         scene.add(this.livesCounterMesh1);
         scene.add(this.livesCounterMesh2);
         scene.add(this.livesCounterMesh3);
-    }
+    };
     this.updateLives = function(){
         switch (this.livesValue) {
             case 0:
@@ -108,32 +108,28 @@ var HudManager = function (scene,cyberFont) {
                 scene.remove(this.livesCounterMesh2);
                 scene.remove(this.livesCounterMesh3);
         }
-    }
+    };
 
     this.liveRotation = 0;
     this.rotateLives = function (){
-        this.liveRotation += 0.02
+        this.liveRotation += 0.02;
         this.livesCounterMesh1.rotation.y = this.livesCounterMesh2.rotation.y
                                         = this.livesCounterMesh3.rotation.y
                                         = this.liveRotation;
-    }
+    };
 
     this.decreaseLives = function () {
         this.livesValue--;
         this.updateLives();
-        if (this.livesValue == 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
+        return this.livesValue === 0;
+    };
 
     this.removeHud = function (){
         scene.remove(this.scoreTextMesh);
         scene.remove(this.scoreValueMesh);
         scene.remove(this.gameOverTextMesh);
         scene.remove(this.pressRTextMesh);
-    }
+    };
 
     this.startScreenIsLive = false;
     this.startScreen = function (){
@@ -162,21 +158,17 @@ var HudManager = function (scene,cyberFont) {
         this.pressSpaceTextMesh.position.z = 3.6;
         scene.add(this.pressSpaceTextMesh);
         this.startScreenIsLive = true;
-    }
+    };
 
     this.blinkingTimer = 30;
     this.animateStartScreen = function(){
         if (this.blinkingTimer <= 0){
             this.blinkingTimer = 60;
-            if (this.pressSpaceTextMesh.visible){
-                this.pressSpaceTextMesh.visible = false;
-            } else {
-                this.pressSpaceTextMesh.visible = true;
-            }
+            this.pressSpaceTextMesh.visible = !this.pressSpaceTextMesh.visible;
         } else {
             this.blinkingTimer--;
         }
-    }
+    };
 
     this.displayLevelUp = function (level){
         //Level X text
@@ -192,11 +184,11 @@ var HudManager = function (scene,cyberFont) {
         this.levelUpTextMesh.position.y = 0;
         this.levelUpTextMesh.position.z = 3.6;
         scene.add(this.levelUpTextMesh);
-    }
+    };
 
     this.removeLevelUp = function (){
         scene.remove(this.levelUpTextMesh);
-    }
+    };
 
     this.fromStartToGameTransition = function(){
         scene.remove(this.marsInvadersTextMesh);
@@ -207,7 +199,7 @@ var HudManager = function (scene,cyberFont) {
         this.livesCounterMesh1.visible = true;
         this.livesCounterMesh2.visible = true;
         this.livesCounterMesh3.visible = true;
-    }
+    };
 
     this.fromGameToGameOverScreen = function (){
         scene.remove(this.livesCounterMesh1);
@@ -251,4 +243,4 @@ var HudManager = function (scene,cyberFont) {
         this.pressRTextMesh.position.z = 3.4;
         scene.add(this.pressRTextMesh);
     }
-}
+};
