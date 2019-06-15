@@ -1,7 +1,7 @@
 //The Battle Manager manage the whole battle, and is also in charge of loading:
 //the player, missiles, enemies, their, destruction, movements, updates and collision
 
-var BattleManager = function (scene) {
+const BattleManager = function (scene) {
     //wether all entities are loaded or not
     this.initiated = false;
 
@@ -20,7 +20,7 @@ var BattleManager = function (scene) {
     this.objLoader = new THREE.OBJLoader();
 
     this.loadObj = function (){
-        var _this = this;
+        const _this = this;
         this.objLoader.load( "../medias/models/ships.obj", function(object){
             _this.playerShip = new PlayerShip(scene, _this.hudManager, object.children[1].geometry);
             _this.spawnEnemies(object.children[0].geometry);
@@ -31,14 +31,12 @@ var BattleManager = function (scene) {
 
     //the player Ship
     this.playerShip;
-    this.playerLives;
 
     //the player Missile
     this.playerMissileIsLive = false;
     this.playerMissile = undefined;
     this.geomMissile = new THREE.BoxGeometry(0.01, 0.04, 0.01);
     this.matRed = new THREE.MeshBasicMaterial({color: 0xff0000});
-    this.meshMissile = new THREE.Mesh(this.geomMissile, this.matRed);
 
     //wether the next level pop up is here or not
     this.levelPopUp = false;
@@ -57,6 +55,7 @@ var BattleManager = function (scene) {
         this.levelPopUp = false;
         //this.spawnEnemies(this.currentLevel) /*crash the game!*/
         this.hudManager.removeLevelUp();
+        this.resetEnemiesPosition();
         this.setEnemiesVisible();
         this.enemiesAlive = this.enemyNumber;
     };
@@ -70,15 +69,15 @@ var BattleManager = function (scene) {
     };
     this.checkPlayerMissileCollision = function () {
         //for each enemy
-        for (var i = 0; i < this.enemyNumber ; i++) {
+        for (let i = 0; i < this.enemyNumber ; i++) {
             //first we check if both the enemy and missile still exist
             if (this.playerMissileIsLive && this.enemyArray[i].enemy.visible) {
                 //then we calculate the difference on the Y axis between the missile and the enemy
-                var diffY = this.enemyArray[i].enemy.position.y - this.playerMissile.missile.position.y;
+                const diffY = this.enemyArray[i].enemy.position.y - this.playerMissile.missile.position.y;
                 //and then we check if this is withing collision range (Y axis)
                 if ( diffY < 0.05 && diffY > -0.05) {
                     //then this time, we calculate the difference on the X axis between the missile and the enemy
-                    var diffX = this.enemyArray[i].enemy.position.x - this.playerMissile.missile.position.x;
+                    const diffX = this.enemyArray[i].enemy.position.x - this.playerMissile.missile.position.x;
                     //and then we check if this is withing collision range (X axis), thus a real collision
                     if ( diffX < 0.05 && diffX > -0.05) {
                         this.enemyArray[i].enemy.visible = false;
@@ -100,14 +99,14 @@ var BattleManager = function (scene) {
         //first we check if both the game is live and the missile still exist
         if (this.enemyMissileIsLive && !this.gameOverScreen) {
             //then we calculate the difference on the Y axis between the missile and the enemy
-            var diffY = this.playerShip.shipMesh.position.y - this.enemyMissile.missile.position.y;
+            let diffY = this.playerShip.shipMesh.position.y - this.enemyMissile.missile.position.y;
             if (diffY < 0){
                 diffY = -diffY;
             }
             //and then we check if this is withing collision range (Y axis)
             if ( diffY < 0.05) {
                 //then this time, we calculate the difference on the X axis between the missile and the enemy
-                var diffX = this.playerShip.shipMesh.position.x - this.enemyMissile.missile.position.x;
+                let diffX = this.playerShip.shipMesh.position.x - this.enemyMissile.missile.position.x;
                 if (diffX < 0){
                     diffX = -diffX;
                 }
@@ -129,10 +128,8 @@ var BattleManager = function (scene) {
     };
 
     //enemies
-    //this.geomEnemy = new THREE.BoxGeometry(0.1, 0.1, 0.03);
     this.geomEnemy;
     this.matDarkGreen = new THREE.MeshStandardMaterial({color: 0x005500});
-    this.meshEnemy = new THREE.Mesh(this.geomEnemy, this.matDarkGreen);
     this.framesBetweenEachEnemyFire;
     this.framesBeforeEnemyFire;
     this.lowestEnemyYPos;
@@ -152,9 +149,9 @@ var BattleManager = function (scene) {
         this.changingWay = false;
         this.difficultySpeed = 0.002;
         this.distanceTraveledByEnemies = 0;
-        for (var i = 0; i < this.enemyNumber; i++){
-            var dynPosX = (i%10 - 5)*0.16;
-            var dynPosY = 0.7 - (0.14*(i-i%10)/10);
+        for (let i = 0; i < this.enemyNumber; i++){
+            const dynPosX = (i%10 - 5)*0.16;
+            const dynPosY = 0.7 - (0.14*(i-i%10)/10);
             this.enemyArray[i] = new Enemy(this.geomEnemy, this.matDarkGreen, dynPosX , dynPosY);
             this.enemyArray[i].enemy.visible = false;
             scene.add(this.enemyArray[i].enemy);
@@ -164,14 +161,13 @@ var BattleManager = function (scene) {
         }
     };
     this.matGreen = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    this.meshEnemyMissile = new THREE.Mesh(this.geomMissile, this.matGreen);
     this.enemyMissile;
     this.enemyMissileIsLive = false;
     this.targetAcquired = false;
     this.enemiesFireMissile = function (numberEnemy) {
         this.enemyMissile = new EnemyMissile(this.geomMissile, this.matGreen,
                                         this.enemyArray[numberEnemy].enemy.position.x,
-                                        this.enemyArray[numberEnemy].enemy.position.y-0.05);
+                                        this.enemyArray[numberEnemy].enemy.position.y - 0.05);
         scene.add(this.enemyMissile.missile);
         this.enemyMissileIsLive = true;
         this.targetAcquired = false;
@@ -180,26 +176,26 @@ var BattleManager = function (scene) {
 
     this.moveEnemies = function () {
         //checking if enemies can fire
-        var numberClosest;
+        let numberClosest;
+        let diffXClosest;
         if (!this.enemyMissileIsLive && !this.gameOverScreen && !this.levelPopUp){
             if (this.framesBeforeEnemyFire > 0){
                 this.framesBeforeEnemyFire--;
             } else {
                 this.targetAcquired = true;
-                var posXPlayer = this.playerShip.shipMesh.position.x;
-                var diffXClosest = 99;
+                diffXClosest = 99;
                 numberClosest = 0;
             }
         }
         //Moving enemies: for each enemy created
-        for (var i = this.enemyNumber-1; i >= 0; i--) {
+        for (let i = this.enemyNumber-1; i >= 0; i--) {
             //store the way they should move, +1 or -1
-            var theWay = this.enemyWay;
+            const theWay = this.enemyWay;
             //if the enemy hasn't been destroyed
             if (this.enemyArray[i].enemy.visible) {
                 //checking which enemy is the closest to the plyaer, on the X axis
-                var posXEnemy = this.enemyArray[i].enemy.position.x;
-                var actualDiffX = posXEnemy - posXPlayer;
+                const posXEnemy = this.enemyArray[i].enemy.position.x;
+                let actualDiffX = posXEnemy - this.playerShip.shipMesh.position.x;
                 if (actualDiffX < 0) {
                     actualDiffX = - actualDiffX;
                 }
@@ -228,12 +224,9 @@ var BattleManager = function (scene) {
     };
 
     this.resetEnemiesPosition = function () {
-        for (var i = 0; i < this.enemyNumber; i++) {
+        for (let i = 0; i < this.enemyNumber; i++) {
             //if the enemy hasn't been destroyed
-            if (this.enemyArray[i].enemy.visible) {
-                //move enemies up
-                this.enemyArray[i].enemy.position.y += this.distanceTraveledByEnemies;
-            }
+            this.enemyArray[i].enemy.position.y += this.distanceTraveledByEnemies;
         }
         this.distanceTraveledByEnemies = 0;
     };
@@ -243,8 +236,7 @@ var BattleManager = function (scene) {
     };
 
     this.removeAllEnemies = function (){
-        for (var i = 0; i < this.enemyNumber; i++) {
-            //scene.remove(this.enemyArray[i].enemy) /*crash the game?!*/
+        for (let i = 0; i < this.enemyNumber; i++) {
             this.enemyArray[i].enemy.visible = false;
         }
     };
@@ -283,7 +275,7 @@ var BattleManager = function (scene) {
         this.enemyWay = -this.enemyWay;
         this.changingWay = false;
         this.distanceTraveledByEnemies += 0.03;
-        for (var i = 0; i < this.enemyNumber; i++) {
+        for (let i = 0; i < this.enemyNumber; i++) {
             this.enemyArray[i].enemy.position.y -= 0.03;
             if (this.lowestEnemyYPos > this.enemyArray[i].enemy.position.y){
                 this.lowestEnemyYPos = this.enemyArray[i].enemy.position.y;
@@ -297,7 +289,7 @@ var BattleManager = function (scene) {
     };
 
     this.setEnemiesVisible = function (){
-        for (var i = 0; i < this.enemyNumber; i++) {
+        for (let i = 0; i < this.enemyNumber; i++) {
             this.enemyArray[i].enemy.visible = true;
         }
     };
@@ -332,7 +324,6 @@ var BattleManager = function (scene) {
         } else {
             this.invinciblePlayer = true;
             this.playerShip.shipMesh.material = new THREE.MeshStandardMaterial({color: 0xaaaa00});
-
         }
     };
 

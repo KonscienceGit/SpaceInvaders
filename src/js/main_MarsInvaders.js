@@ -2,60 +2,53 @@
 //python -m SimpleHTTPServer
 //localhost:8000
 
-var main = function () {
+const main = function () {
     //engine variables
-    var playerMissile = null;
-    var marsRotate = true;
-    var marsRotation = 0;
-    var maxAnisotropy;
-    var sufficientAnisotropy;
-    var textureLoader;
-    var battleManager;
-    var levelPopUpLocalTimer;
+    let marsRotate = true;
+    let marsRotation = 0;
+    let maxAnisotropy;
+    let sufficientAnisotropy;
+    let textureLoader;
+    let battleManager;
+    let levelPopUpLocalTimer;
 
     //loading screen
-    var manager;
-    var textManager;
-    var loadingGroup;
+    let manager;
+    let textManager;
+    let loadingGroup;
 
     //trinity of scene, camera and renderer
-    var scene;
-    var camera;
-    var renderer;
+    let scene;
+    let camera;
+    let renderer;
 
     //lights
-    var sunlight;
+    let sunlight;
 
     //stats overlay
-    var stats;
+    let stats;
 
     //regular controls
-    var keyLeft = false;
-    var keyRight = false;
-    var keyShoot = false;
-    //camera controls
-    //var orbitalControls;
+    let keyLeft = false;
+    let keyRight = false;
 
     //geometry
-    var vertexMult = null;
-    var textGeometry;
-    var geomSegBar = new THREE.BoxGeometry(0.98, 0.2, 0.1);
-    var geomBar = new THREE.BoxGeometry(5, 0.05, 0.1);
-    var geomSkybox = new THREE.SphereGeometry (1,24,16);
+    let vertexMult = null;
+    let textGeometry;
+    let geomSegBar = new THREE.BoxGeometry(0.98, 0.2, 0.1);
+    let geomBar = new THREE.BoxGeometry(5, 0.05, 0.1);
+    let geomSkybox = new THREE.SphereGeometry (1,24,16);
 
     //materials
-    var matMars;
-    var matWhite = new THREE.MeshBasicMaterial({color: 0xffffff});
+    let matMars;
 
     //global objects
-    var mars;
-    var skybox;
+    let mars;
+    let skybox;
 
     //we can call them in this precise order
-    if ( !init() ) {
-        if ( !loadingScene() ) {
-            initGUI();
-        }
+    if ( !init() && !loadingScene() ) {
+        initGUI();
     }
 
     function init() {
@@ -112,16 +105,16 @@ var main = function () {
     function loadingScreen( stage, battleManager ) {
         //each time a texture is loaded, the load manager call this function, updating the loading screen.
         //Loading screen objects are then added to the loadingGroup.
-        var matMetal = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
+        const matMetal = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
         switch (stage) {
             case 0:
-                var loadingBar = new THREE.Mesh(geomBar, matMetal);
+                const loadingBar = new THREE.Mesh(geomBar, matMetal);
                 loadingBar.position.x = 0;
                 loadingBar.position.y = -0.15;
                 loadingBar.position.z = 1.2;
                 loadingGroup.add( loadingBar );
                 renderer.render(scene, camera);
-                var loader = new THREE.FontLoader(textManager);
+                const loader = new THREE.FontLoader(textManager);
                 loader.load( "../lib/font/CyberspaceRacewayBack.json", function ( font ) {
                 	textGeometry = new THREE.TextGeometry( "LOADING...", {
                 		font: font,
@@ -132,11 +125,11 @@ var main = function () {
                     battleManager.setFont(font);
                 } );
                 textManager.onLoad = function ( ) {
-                    var loadingText = new THREE.Mesh(textGeometry, matMetal);
+                    const loadingText = new THREE.Mesh(textGeometry, matMetal);
                     loadingText.position.x = -2;
                     loadingText.position.y = 0.3;
                     loadingText.position.z = 1;
-                    var loadingBlock1 = new THREE.Mesh(geomSegBar, matMetal);
+                    const loadingBlock1 = new THREE.Mesh(geomSegBar, matMetal);
                     loadingBlock1.position.x = -2;
                     loadingBlock1.position.z = 1.2;
                     loadingGroup.add( loadingText );
@@ -145,25 +138,25 @@ var main = function () {
                 };
             break;
             case 1:
-                var loadingBlock2 = new THREE.Mesh(geomSegBar, matMetal);
+                const loadingBlock2 = new THREE.Mesh(geomSegBar, matMetal);
                 loadingBlock2.position.x = -1;
                 loadingBlock2.position.z = 1.2;
                 loadingGroup.add( loadingBlock2 );
             break;
             case 2:
-                var loadingBlock3 = new THREE.Mesh(geomSegBar, matMetal);
+                const loadingBlock3 = new THREE.Mesh(geomSegBar, matMetal);
                 loadingBlock3.position.x = 0;
                 loadingBlock3.position.z = 1.2;
                 loadingGroup.add( loadingBlock3 );
             break;
             case 3:
-                var loadingBlock4 = new THREE.Mesh(geomSegBar, matMetal);
+                const loadingBlock4 = new THREE.Mesh(geomSegBar, matMetal);
                 loadingBlock4.position.x = 1;
                 loadingBlock4.position.z = 1.2;
                 loadingGroup.add( loadingBlock4 );
             break;
             case 4:
-                var loadingBlock5 = new THREE.Mesh(geomSegBar, matMetal);
+                const loadingBlock5 = new THREE.Mesh(geomSegBar, matMetal);
                 loadingBlock5.position.x = 2;
                 loadingBlock5.position.z = 1.2;
                 loadingGroup.add( loadingBlock5 );
@@ -176,15 +169,15 @@ var main = function () {
     }
 
     function loadingScene() {
-        var normalMapMars = textureLoader.load("../medias/maps/mars/Blended_NRM.png");
+        const normalMapMars = textureLoader.load("../medias/maps/mars/Blended_NRM.png");
         //due to GitHub limitation of 25Mo per file, had to downsize the normal map. Original map was 8192x4096px.
-        //var normalMapMars = textureLoader.load("maps/mars/Blended_NRM.png");
+        //const normalMapMars = textureLoader.load("maps/mars/Blended_NRM.png");
         normalMapMars.anisotropy = sufficientAnisotropy;
-        var colorMapSkybox = textureLoader.load("../medias/maps/milkyway.jpg");
+        const colorMapSkybox = textureLoader.load("../medias/maps/milkyway.jpg");
         colorMapSkybox.anisotropy = sufficientAnisotropy;
-        var displacementMapMars = textureLoader.load("../medias/maps/mars/Blended_DISP.jpg");
+        const displacementMapMars = textureLoader.load("../medias/maps/mars/Blended_DISP.jpg");
         displacementMapMars.anisotropy = sufficientAnisotropy;
-        var colorMapMars = textureLoader.load("../medias/maps/mars/mars.jpg");
+        const colorMapMars = textureLoader.load("../medias/maps/mars/mars.jpg");
         colorMapMars.anisotropy = sufficientAnisotropy;
 
         matMars = new THREE.MeshPhongMaterial({
@@ -196,7 +189,7 @@ var main = function () {
             displacementMap: displacementMapMars
         });
 
-        var matSkybox = new THREE.MeshBasicMaterial({
+        const matSkybox = new THREE.MeshBasicMaterial({
             map: colorMapSkybox,
             side: THREE.BackSide
         });
@@ -284,9 +277,9 @@ var main = function () {
                     case 80: //F
                         //take a screenshot and open a new tab
                         //solution working on both Chrome and firefox, thank to user Joyston: https://stackoverflow.com/a/45789588
-                        var dataUrl = renderer.domElement.toDataURL("image/jpeg");
-                        var iframe = "<iframe width='100%' height='100%' src='" + dataUrl + "'></iframe>";
-                        var x = window.open();
+                        const dataUrl = renderer.domElement.toDataURL("image/jpeg");
+                        const iframe = "<iframe width='100%' height='100%' src='" + dataUrl + "'></iframe>";
+                        const x = window.open();
                         x.document.write(iframe);
                         x.document.close();
                         break;
@@ -355,8 +348,8 @@ var main = function () {
 
 //Dat GUI section
     function initGUI() {
-        var gui = new dat.GUI( { width: 350 } );
-        var effectController = {
+        const gui = new dat.GUI( { width: 350 } );
+        const effectController = {
             "NormalMapScale": 0.55,
             "DisplacementMapScale": 0.05,
             "VertexMultiplier": 6, //Mars sphere vertex multiplier (the icosahedron have 20 faces, each subdivision then increase this number by 4, thus final number of faces is 20*4^VertexMultiplier)

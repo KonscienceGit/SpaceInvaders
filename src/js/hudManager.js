@@ -1,5 +1,5 @@
 //Hud Manager is responsible for the display of score and lives
-var HudManager = function (scene,cyberFont) {
+const HudManager = function (scene,cyberFont) {
     this.matMetal = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
     this.matNormal = new THREE.MeshNormalMaterial();
 
@@ -57,7 +57,7 @@ var HudManager = function (scene,cyberFont) {
         this.scoreValueMesh.position.y = 0.7;
         this.scoreValueMesh.position.z = 3.1;
         scene.add(this.scoreValueMesh);
-    }
+    };
 
     //the LIVES: Value
     this.livesCounterMesh1;
@@ -65,7 +65,6 @@ var HudManager = function (scene,cyberFont) {
     this.livesCounterMesh3;
     this.livesValue = 3;
     this.drawLives = function(shipGeom){
-        this.shipGeom = shipGeom;
         this.livesCounterMesh1 = new THREE.Mesh(shipGeom, this.matNormal);
         this.livesCounterMesh2 = new THREE.Mesh(shipGeom, this.matNormal);
         this.livesCounterMesh3 = new THREE.Mesh(shipGeom, this.matNormal);
@@ -172,7 +171,7 @@ var HudManager = function (scene,cyberFont) {
 
     this.displayLevelUp = function (level){
         //Level X text
-        var stringConcat = "level "+level;
+        const stringConcat = "level "+level;
         this.levelUpTextGeom = new THREE.TextGeometry( stringConcat, {
             font: cyberFont,
             size: 0.06,
@@ -218,7 +217,7 @@ var HudManager = function (scene,cyberFont) {
         this.gameOverTextMesh.position.y = 0.18;
         this.gameOverTextMesh.position.z = 3.6;
         scene.add(this.gameOverTextMesh);
-        var scoreOffset = 0;
+        let scoreOffset = 0;
         if (this.scoreValue > 0){
             scoreOffset = (Math.log10(this.scoreValue))/40;
         }
@@ -242,5 +241,5 @@ var HudManager = function (scene,cyberFont) {
         this.pressRTextMesh.position.y = -0.2;
         this.pressRTextMesh.position.z = 3.4;
         scene.add(this.pressRTextMesh);
-    }
+    };
 };

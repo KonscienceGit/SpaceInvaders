@@ -1,4 +1,4 @@
-var PlayerMissile = function (geomMissile, matRed,xPos,yPos) {
+const PlayerMissile = function (geomMissile, matRed,xPos,yPos) {
     this.missile = new THREE.Mesh(geomMissile, matRed);
     this.missile.position.x = xPos;
     this.missile.position.y = yPos;
@@ -14,7 +14,7 @@ var PlayerMissile = function (geomMissile, matRed,xPos,yPos) {
     }
 };
 
-var EnemyMissile = function (geomMissile, matGreen,xPos,yPos) {
+const EnemyMissile = function (geomMissile, matGreen,xPos,yPos) {
     this.missile = new THREE.Mesh(geomMissile, matGreen);
     this.missile.position.x = xPos;
     this.missile.position.y = yPos;
@@ -30,7 +30,7 @@ var EnemyMissile = function (geomMissile, matGreen,xPos,yPos) {
     }
 };
 
-var PlayerShip = function (scene,hudManager,geomShip){
+const PlayerShip = function (scene,hudManager,geomShip){
     this.matShip = new THREE.MeshStandardMaterial({color: 0xaaaaaa});
     this.geomShip = geomShip;
     this.shipMesh = new THREE.Mesh(this.geomShip, this.matShip);
@@ -53,7 +53,7 @@ var PlayerShip = function (scene,hudManager,geomShip){
     };
 };
 
-var Enemy = function (geomEnemy, matDarkGreen, xPos,yPos) {
+const Enemy = function (geomEnemy, matDarkGreen, xPos,yPos) {
     this.enemy = new THREE.Mesh(geomEnemy, matDarkGreen);
     this.enemy.position.x = xPos;
     this.enemy.position.y = yPos;
